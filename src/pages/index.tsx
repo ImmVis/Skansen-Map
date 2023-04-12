@@ -74,8 +74,6 @@ export default function Home({ stations, googleMapsApiKey }: { stations: Station
 
 
 export async function getStaticProps() {
-	console.log("MAIN getStaticProps!");
-
 	return {
 		props: {
 			stations: await getAllStations(),

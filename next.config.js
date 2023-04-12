@@ -10,6 +10,7 @@ const nextConfig = {
       },
     ],
   },
+  basePath: '/Skansen-Map',
   // exportPathMap: '/out',
   async rewrites() {
     return [
