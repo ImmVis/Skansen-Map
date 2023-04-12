@@ -5,6 +5,21 @@ on:
     branches:
       - main
 
+permissions:
+  actions: write
+  checks: write
+  contents: write
+  deployments: write
+  id-token: write
+  issues: write
+  discussions: write
+  packages: write
+  pages: write
+  pull-requests: write
+  repository-projects: write
+  security-events: write
+  statuses: write
+
 jobs:
   build:
     name: Build
@@ -24,6 +39,11 @@ jobs:
 
       - name: Build project
         run: npm run build
+
+      - name: Create .env file
+        uses: ozaytsev86/create-env-file@v1
+        with:
+          ENV_SECRET_API_KEY: ${{ secrets.SECRET_API_KEY }}
 
       - name: Export project
         run: npm run export
