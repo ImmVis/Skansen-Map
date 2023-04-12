@@ -10,14 +10,14 @@ const nextConfig = {
       },
     ],
   },
-  basePath: '/Skansen-Map',
+  // basePath: '/Skansen-Map',
   // exportPathMap: '/out',
   async rewrites() {
     return [
-      {
-        source: '/:any*',
-        destination: '/',
-      }
+      // {
+        // source: '/:any*',
+        // destination: '/',
+      // }
     ];
   }
 }
