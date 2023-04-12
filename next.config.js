@@ -1,3 +1,5 @@
+const isProd = process.env.NODE_ENV === 'production'
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -11,6 +13,7 @@ const nextConfig = {
     ],
   },
   // basePath: '/Skansen-Map',
+  assetPrefix: isProd ? '/Skansen-Map/' : '',
   // exportPathMap: '/out',
   async rewrites() {
     return [
