@@ -12,7 +12,7 @@ const nextConfig = {
       },
     ],
   },
-  // basePath: '/Skansen-Map',
+  basePath: isProd ? '/Skansen-Map' : '',
   assetPrefix: isProd ? '/Skansen-Map/' : '',
   // exportPathMap: '/out',
   async rewrites() {
