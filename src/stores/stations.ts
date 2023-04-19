@@ -1,51 +1,74 @@
 // store/stations.ts
 import { atom } from 'nanostores';
 
-interface Station {
-	name: string;
+export interface StationAtom {
+	id: string;
 	hasVisited: boolean;
 	visitCount: number;
+	passwordCorrect: boolean;
 }
 
-export const stations = atom<Station[]>([])
+export const atomStations = atom<StationAtom[]>([]);
 
-export function addStation(station: Station) {
-
-	const s = stations.get().find(s => s.name == station.name);
-	if (s) {
-		s.visitCount += 1;
-		stations.notify();
+export function getStationAtom(stationId: string) {
+	const station = atomStations.get().find(s => s.id == stationId);
+	if (station) {
+		return station;
 	}
 	else {
-		stations.set([...stations.get(), station]);
+		const newStation = {
+			id: stationId,
+			hasVisited: false,
+			visitCount: 0,
+			passwordCorrect: false
+		};
+		atomStations.set([...atomStations.get(), newStation]);
+		return newStation;
 	}
 }
 
-addStation({
-	name: "Skog",
-	hasVisited: true,
-	visitCount: 3,
-});
+export function visitStationAtom(stationId: string) {
+	const station = getStationAtom(stationId);
+	station.hasVisited = true;
+	station.visitCount += 1;
+	atomStations.notify();
+}
 
-addStation({
-	name: "Stad",
-	hasVisited: false,
-	visitCount: 0,
-});
+export function unlockStationAtom(stationId: string) {
+	const station = getStationAtom(stationId);
+	station.passwordCorrect = true;
+	console.log("Pog");
+	atomStations.notify();
+}
 
+// export function addStation(station: Station) {
 
-addStation({
-	name: "Hav",
-	hasVisited: true,
-	visitCount: 1,
-});
+// 	const s = getStation(station.id);
+// 	if (s) {
+// 		s.visitCount += 1;
+// 		atomStations.notify();
+// 	}
+// 	else {
+// 		atomStations.set([...atomStations.get(), station]);
+// 	}
+// }
+
+// addStation({
+	// id: "station_skog",
+	// hasVisited: true,
+	// visitCount: 3,
+// });
 
 
 
 // store/admins.ts
 import { computed } from 'nanostores';
-// import { stations } from './stations.js';
+// import { atomStations } from './stations.js';
 
-export const visitedStations = computed(stations, allStations =>
+export const visitedStations = computed(atomStations, allStations =>
 	allStations.filter(station => station.hasVisited)
+)
+
+export const unlockedStations = computed(atomStations, allStations =>
+	allStations.filter(station => station.passwordCorrect)
 )

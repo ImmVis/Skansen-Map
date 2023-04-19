@@ -18,15 +18,18 @@ const StationMeta = z.object({
 		lat: z.number(),
 		lng: z.number(),
 	}),
-	symbols: z.optional(z.array(
-		z.object({
-			value: z.string(),
-			image: z.string()
-		})
-	)),
-	password: z.optional(z.array(
+	// symbols: z.optional(z.array(
+		// z.object({
+			// value: z.string(),
+			// image: z.string()
+		// })
+	// )),
+	symbols: z.array(
 		z.string()
-	))
+	),
+	password: z.array(
+		z.string()
+	)
 });
 
 /** Frontmatter variables at the top of the .mdx file */
