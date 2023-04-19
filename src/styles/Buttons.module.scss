@@ -1,0 +1,46 @@
+.bigButton,
+.textButton {
+	margin: 12px;
+	padding: 6px 24px;
+	border-radius: 16px;
+
+	font-size: 1.0em;
+	font-weight: 700;
+
+	cursor: pointer;
+	user-select: none;
+	-webkit-tap-highlight-color: transparent;
+
+	transition: all 200ms;
+
+	&.hold {
+		transform: translateY(3px);
+		transition: all 40ms;
+	}
+}
+
+
+.bigButton {
+	background-color: var(--skansen-red);
+	color: var(--skansen-white);
+
+	box-shadow: 0px 6px 0px var(--skansen-darkred);
+
+	&.hold {
+		box-shadow: 0px 3px 0px var(--skansen-darkred);
+	}
+}
+
+.textButton {
+	color: var(--skansen-darkred);
+}
+
+.closeButton {
+	padding: 0 0.5em 0.2em;
+	color: var(--skansen-black);
+	font-size: 2em;
+	font-weight: 600;
+	position: absolute;
+	top: 0;
+	right: 0;
+}

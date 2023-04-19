@@ -6,8 +6,10 @@ import { getCustomComponents } from "@/components/CustomComponents";
 import { unlockedStations, unlockStationAtom, StationAtom } from "@/stores/stations";
 import { PasswordPrompt } from "@/components/Password";
 import { State } from "@/helpers/State";
+import { BigButton, CloseButton, TextButton } from "./Buttons";
 
 import startImage from "@/assets/skansen-treasureHunt-2youth.svg";
+import infoImage from "@/assets/skansen-treasureHunt-6youth.svg";
 
 
 type PanelProps = {
@@ -15,11 +17,12 @@ type PanelProps = {
 	stations: StationData[];
 	selectedStation: StationData | undefined;
 	onStart: any;
+	onInfo: any;
 	onExplore: any;
 	onClose: any;
 }
 
-export function Panel({ state, stations, selectedStation, onStart, onExplore, onClose }: PanelProps) {
+export function Panel({ state, stations, selectedStation, onStart, onInfo, onExplore, onClose }: PanelProps) {
 	const stores = useStore(unlockedStations);
 
 	function getStationAtom(stationId: string) {
@@ -31,8 +34,8 @@ export function Panel({ state, stations, selectedStation, onStart, onExplore, on
 
 			{/* State: {state == State.StartPage ? "StartPage" : state == State.InfoPage ? "InfoPage" : state == State.MapBrowse ? "MapBrowse" : state == State.MapSelect ? "MapSelect" : state == State.StationPassword ? "StationPassword" : state == State.StationDetails ? "StationDetails" : state == State.StationQuiz ? "StationQuiz" : state == State.StationResult ? "StationResult" : ""} */}
 
-			{/* Info page */}
-			<div style={{width: "75%", margin: "auto"}} className={`pt-10 text-left ${!(state == State.StartPage) && "hidden"}`}>
+			{/* Start page */}
+			<div style={{ width: "75%", margin: "auto" }} className={`flex flex-col min-h-full justify-center pt-10 text-left ${!(state == State.StartPage) && "hidden"}`}>
 				<small>
 					Välkommen till
 				</small>
@@ -48,16 +51,37 @@ export function Panel({ state, stations, selectedStation, onStart, onExplore, on
 				</p>
 
 				<div className="text-center">
-				<button className="panel-big-button" onClick={onStart}>
-					Starta tipspromenad
-				</button>
-				<button className="panel-text-button">
-					Hur spelar jag?
-				</button>
+					<BigButton onClick={onStart}>
+						Starta tipspromenad
+					</BigButton>
+					<TextButton onClick={onInfo}>
+						Hur spelar jag?
+					</TextButton>
 				</div>
 
-				<Image alt="flag" src={startImage} />
+				<Image alt="Start page image" src={startImage} />
 			</div>
+
+
+			{/* Info page */}
+			<div style={{ width: "75%", margin: "auto", backgroundImage: `url(${infoImage})` }} className={`flex flex-col justify-center pt-10 text-left ${!(state == State.InfoPage) && "hidden"}`}>
+				<h1 className="font-extrabold">
+					Instruktioner
+				</h1>
+				<p>
+					Consectetur est minim occaecat ex magna anim sint pariatur culpa velit. Mollit aliqua non nisi aliquip quis cupidatat ut qui ullamco quis aliqua ea. Cillum quis ut exercitation veniam adipisicing commodo commodo. Anim esse commodo est non minim irure esse officia. Commodo est enim quis tempor duis labore nostrud consectetur aute qui qui. Eu reprehenderit anim adipisicing cillum ullamco ex Lorem elit ea.
+				</p>
+				<p>
+					Kom tillbaka senare.
+				</p>
+
+				<div className="text-center">
+					<BigButton onClick={onStart}>
+						Starta tipspromenad
+					</BigButton>
+				</div>
+			</div>
+
 
 			{/* No station selected */}
 			<div className={`flex flex-col h-full justify-center ${!(state == State.MapBrowse) && "hidden"}`}>
@@ -71,22 +95,24 @@ export function Panel({ state, stations, selectedStation, onStart, onExplore, on
 					<span className="text-xl font-extrabold pt-3">{station.data.name}</span>
 					<Image width={256} height={256} className="panel-preview-image flex-1" alt={station.data.image} src={station.data.image} />
 					<div className="mb-6">
-					<button className="panel-big-button" onClick={onExplore}>
-						{getStationAtom(station.data.id)?.passwordCorrect
-							? "Utforska"
-							: "Lås upp"
-						}
-					</button>
+						<BigButton onClick={onExplore}>
+							{getStationAtom(station.data.id)?.passwordCorrect
+								? "Utforska"
+								: "Lås upp"
+							}
+						</BigButton>
 					</div>
 
-					<button className="panel-close-button" onClick={onClose}>&times;</button>
+					<CloseButton onClick={onClose}>
+						&times;
+					</CloseButton>
 				</div>
 			))}
 
 
 			{/* Station detailed info */}
 			{stations.map(station => (
-				<div key={station.data.id + "detail"} className={`px-4 pt-16 pb-8 ${!(state == State.StationDetails && station == selectedStation) && "hidden"}`}>
+				<div key={station.data.id + "detail"} className={`p-4 ${!(state == State.StationDetails && station == selectedStation) && "hidden"}`}>
 					<StationContent station={station} atom={getStationAtom(station.data.id)} onClose={onClose} />
 				</div>
 			))}
@@ -107,12 +133,12 @@ function StationContent({ station, atom, onClose }: { station: StationData, atom
 
 				<MDXRemote {...station.content} components={getCustomComponents(station.mdxPath)} />
 
-				<button className="panel-big-button" onClick={onClose}>
+				<BigButton onClick={onClose}>
 					Gå tillbaka
-				</button>
-				<button className="panel-close-button" onClick={onClose}>
+				</BigButton>
+				<CloseButton onClick={onClose}>
 					&times;
-				</button>
+				</CloseButton>
 			</div>
 
 			<div className={`${atom?.passwordCorrect && "hidden"}`} >
@@ -124,9 +150,9 @@ function StationContent({ station, atom, onClose }: { station: StationData, atom
 				</p>
 				<PasswordPrompt symbols={station.data.symbols || []} password={station.data.password || []} onSuccess={onPasswordCorrect} />
 
-				<button className="panel-big-button" onClick={onClose}>
+				<BigButton onClick={onClose}>
 					Gå tillbaka
-				</button>
+				</BigButton>
 			</div>
 		</>
 	);

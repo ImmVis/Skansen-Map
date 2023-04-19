@@ -117,8 +117,8 @@ function MyComponent({ googleMapsApiKey, center, stations, selectedStation, onSt
 						options={{
 							icon: {
 								url: "./marker.gif",
-								scaledSize: new google.maps.Size(100, 100),
-								anchor: new google.maps.Point(50, 100),
+								scaledSize: new google.maps.Size(50, 50),
+								anchor: new google.maps.Point(25, 50),
 
 								// url: station.data.icon,
 								// scaledSize: new google.maps.Size(100, 100),

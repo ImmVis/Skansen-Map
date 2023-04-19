@@ -11,7 +11,7 @@ export default function Header() {
 
 	return (
 		<>
-			<div className='bg-white shadow-lg relative' style={{ zIndex: 2 }}>
+			<div className='bg-white shadow-md relative' style={{ zIndex: 2 }}>
 				<div className='w-full mx-auto flex justify-between p-4 items-center'>
 
 					<img className="h-7" src="/logo.svg" />

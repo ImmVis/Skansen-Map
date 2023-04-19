@@ -43,8 +43,24 @@ export function PasswordPrompt({ symbols, password, onSuccess }: { symbols: stri
 }
 
 function PasswordButton({ symbol, highlight, addInput }: { symbol: string, highlight: boolean, addInput: any }) {
+	const buttonRef = useRef<any>(null);
+
+	function onPointerDown() {
+		buttonRef.current?.classList.add(style.hold);
+	}
+	function onPointerUp() {
+		buttonRef.current?.classList.remove(style.hold);
+	}
+
 	return (
-		<div className={`${style.button} ${highlight && style.highlight}`} onClick={() => addInput(symbol)}>
+		<div
+			ref={buttonRef}
+			className={`${style.button} ${highlight && style.highlight}`}
+			onPointerDown={onPointerDown}
+			onPointerUp={onPointerUp}
+			onPointerOut={onPointerUp}
+			onClick={() => addInput(symbol)}
+		>
 			<img src={`/content/symbols/${symbol}.svg`} />
 		</div>
 	);

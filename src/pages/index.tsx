@@ -77,6 +77,9 @@ export default function Home({ stations, googleMapsApiKey }: { stations: Station
 					onStart={() => {
 						setState(State.MapBrowse);
 					}}
+					onInfo={() => {
+						setState(State.InfoPage);
+					}}
 					onExplore={() => {
 						onVisitStation(currentStation!);
 					}}
