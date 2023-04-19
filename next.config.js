@@ -12,8 +12,8 @@ const nextConfig = {
       },
     ],
   },
-  basePath: isProd ? '/Skansen-Map' : '',
-  assetPrefix: isProd ? '/Skansen-Map/' : '',
+  // basePath: isProd ? '/Skansen-Map' : '',
+  // assetPrefix: isProd ? '/Skansen-Map/' : '',
   // exportPathMap: '/out',
   async rewrites() {
     return [
