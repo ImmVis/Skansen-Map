@@ -46,17 +46,9 @@ function PasswordButton({ symbol, highlight, addInput }: { symbol: string, highl
 	const buttonRef = useRef<any>(null);
 	const [hold, setHold] = useState(false);
 
-	function onPointerDown() {
-		setHold(true);
-	}
-	function onPointerUp() {
+	function onClick() {
 		if (hold) {
 			addInput(symbol);
-		}
-		setHold(false);
-	}
-	function onPointerStop(event: any) {
-		if (event.pointerType == "mouse") {
 			setHold(false);
 		}
 	}
@@ -65,11 +57,11 @@ function PasswordButton({ symbol, highlight, addInput }: { symbol: string, highl
 		<div
 			ref={buttonRef}
 			className={`${style.button} ${hold && style.hold} ${highlight && style.highlight}`}
-			onPointerDown={onPointerDown}
-			onPointerUp={onPointerUp}
-			onPointerLeave={onPointerStop}
-			onTouchEnd={onPointerUp}
-			onTouchStart={onPointerDown}
+			onPointerDown={() => setHold(true)}
+			onTouchStart={() => setHold(true)}
+			onMouseLeave={() => setHold(false)}
+			onPointerUp={onClick}
+			onTouchEnd={onClick}
 			onContextMenu={(e) => e.preventDefault()}
 		>
 			<img src={`/content/symbols/${symbol}.svg`} />

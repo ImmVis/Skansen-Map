@@ -19,10 +19,11 @@ type PanelProps = {
 	onStart: any;
 	onInfo: any;
 	onExplore: any;
+	onQuiz: any;
 	onClose: any;
 }
 
-export function Panel({ state, stations, selectedStation, onStart, onInfo, onExplore, onClose }: PanelProps) {
+export function Panel({ state, stations, selectedStation, onStart, onInfo, onExplore, onQuiz, onClose }: PanelProps) {
 	const stores = useStore(unlockedStations);
 
 	function getStationAtom(stationId: string) {
@@ -62,7 +63,7 @@ export function Panel({ state, stations, selectedStation, onStart, onInfo, onExp
 			{/* Station detailed info */}
 			{stations.map(station => (
 				<div key={station.data.id + "detail"} className={`p-4 ${!(state == State.StationDetails && station == selectedStation) && "hidden"}`}>
-					<StationContent station={station} atom={getStationAtom(station.data.id)} onClose={onClose} />
+					<StationContent station={station} atom={getStationAtom(station.data.id)} onQuiz={onQuiz} onClose={onClose} />
 				</div>
 			))}
 		</div>
@@ -70,7 +71,7 @@ export function Panel({ state, stations, selectedStation, onStart, onInfo, onExp
 }
 
 
-function StationContent({ station, atom, onClose }: { station: StationData, atom?: StationAtom, onClose: any }) {
+function StationContent({ station, atom, onQuiz, onClose }: { station: StationData, atom?: StationAtom, onQuiz: any, onClose: any }) {
 	function onPasswordCorrect() {
 		unlockStationAtom(station.data.id)
 	}
@@ -82,13 +83,16 @@ function StationContent({ station, atom, onClose }: { station: StationData, atom
 
 				<MDXRemote {...station.content} components={getCustomComponents(station.mdxPath)} />
 
-				<BigButton onClick={onClose}>
-					Starta frågesport
-				</BigButton>
-				<br />
-				<TextButton onClick={onClose}>
-					Gå tillbaka
-				</TextButton>
+				<div className="mt-12 mb-8">
+					<BigButton onClick={onQuiz}>
+						Starta frågesport
+					</BigButton>
+					<br />
+					<TextButton onClick={onClose}>
+						Gå tillbaka
+					</TextButton>
+				</div>
+
 				<CloseButton onClick={onClose}>
 					&times;
 				</CloseButton>
