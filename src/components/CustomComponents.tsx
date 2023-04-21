@@ -1,5 +1,9 @@
 import path from "path";
 import { useState } from "react";
+import path from "path";
+import Image from "next/image";
+
+import playButton from "@/assets/play.svg";
 
 
 // Convert relative image path to static (/public/content/.../)
@@ -90,11 +94,13 @@ function Video({ src }: { src: string }) {
 
 	return (
 		<div className="video-wrapper">
-			<video onClick={togglePlayback} >
+			<video onClick={togglePlayback} playsInline >
 				<source src={src} type="video/mp4" />
 				Your browser does not support the video tag.
 			</video>
-			{!isPlaying && <div className="video-playbutton">▶</div>}
+			{!isPlaying && <div className="video-playbutton">
+				<Image alt="play" src={playButton} />
+			</div>}
 		</div>
 	);
 }
