@@ -15,7 +15,7 @@ export default function Home({ stations, googleMapsApiKey }: { stations: Station
 		lng: 18.10463536192017
 	});
 
-	const [state, setState] = useState<State>(State.StartPage);
+	const [state, setState] = useState<State>(State.MapBrowse);
 
 	const [selectedStation, setStation] = useState("");
 	function onStationClick(station: StationData | null) {

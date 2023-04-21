@@ -1,0 +1,112 @@
+$size: 25px;
+$spacing: 12px;
+
+
+.background {
+	@apply bg-white shadow-md relative;
+	z-index: 9;
+}
+
+.content {
+	max-width: 420px;
+	@apply w-full mx-auto flex justify-between items-center;
+}
+
+.buttonList {
+	@apply flex gap-2 mr-0;
+}
+
+.button {
+	padding: $spacing;
+
+	cursor: pointer;
+	user-select: none;
+	-webkit-tap-highlight-color: transparent;
+
+	transition: all 200ms;
+	transform: scale(1);
+	filter: brightness(1);
+
+	&:active {
+		transition: all 50ms;
+		transform: scale(0.9);
+		filter: brightness(0.8);
+	}
+}
+
+.skansenLogo {
+	height: $size;
+}
+
+.languageButton {
+	width: $size;
+	height: $size;
+}
+
+.infoButton {
+	background-color: var(--skansen-red);
+	color: var(--skansen-white);
+
+	width: $size;
+	height: $size;
+	line-height: $size;
+	font-size: 22px;
+	font-weight: 700;
+
+	display: flex;
+	justify-content: center;
+	border-radius: 9999px;
+}
+
+
+.panel {
+	width: 100%;
+	height: 100%;
+	margin: calc($size + 2 * $spacing) auto;
+	padding-bottom: calc($size + 2 * $spacing);
+
+	justify-content: center;
+	align-items: center;
+
+	text-align: center;
+
+	@apply bg-white text-black;
+	position: fixed;
+	z-index: 8;
+	// top: 0px;
+	// left: 50%;
+	// transform: translate(-50%, 0);
+	overflow-y: auto;
+
+	transition: all 300ms;
+	opacity: 1;
+}
+
+.hidePanel {
+	// opacity: 0;
+	pointer-events: none;
+	transform: translateY(-100vh);
+}
+
+.panelContent {
+	position: relative;
+	max-width: 420px;
+	margin: auto;
+}
+
+.startPage,
+.infoPage {
+	// position: absolute;
+	@apply flex flex-col min-h-full;
+	justify-content: center;
+	text-align: left;
+	padding: 40px 12.5% 0;
+}
+
+.hidePage {
+	display: none;
+	// opacity: 0.5;
+	// pointer-events: none;
+
+	// transform: translateY(100px);
+}
