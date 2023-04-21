@@ -58,7 +58,7 @@ function MyComponent({ googleMapsApiKey, center, stations, selectedStation, onSt
 	map?.setOptions({
 		restriction: !selectedStation ? {
 			latLngBounds: cameraBounds,
-			strictBounds: false
+			strictBounds: true
 		} : null,
 		gestureHandling: !selectedStation ? "greedy" : "none",
 		maxZoom: 19

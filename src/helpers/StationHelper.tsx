@@ -18,17 +18,22 @@ const StationMeta = z.object({
 		lat: z.number(),
 		lng: z.number(),
 	}),
-	// symbols: z.optional(z.array(
-		// z.object({
-			// value: z.string(),
-			// image: z.string()
-		// })
-	// )),
 	symbols: z.array(
 		z.string()
 	),
 	password: z.array(
 		z.string()
+	),
+	quiz: z.array(
+		z.object({
+			image: z.string(),
+			question: z.string(),
+			option_1: z.string(),
+			option_2: z.string(),
+			option_3: z.string(),
+			option_4: z.string(),
+			correct: z.number(),
+		})
 	)
 });
 
