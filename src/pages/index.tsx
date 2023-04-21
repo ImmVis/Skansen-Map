@@ -64,7 +64,7 @@ export default function Home({ stations, googleMapsApiKey }: { stations: Station
 
 
 	return (
-		<main className="w-full h-full flex flex-col" style={{minHeight: '-webkit-fill-available'}}>
+		<main className="wrapper" style={{minHeight: '-webkit-fill-available'}}>
 			<div className={`map-wrapper ${mapHide ? "active" : ""}`}>
 				<MyMap googleMapsApiKey={googleMapsApiKey} center={center} stations={stations} selectedStation={currentStation} onStationClick={onStationClick}></MyMap>
 			</div>

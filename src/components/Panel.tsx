@@ -83,8 +83,12 @@ function StationContent({ station, atom, onClose }: { station: StationData, atom
 				<MDXRemote {...station.content} components={getCustomComponents(station.mdxPath)} />
 
 				<BigButton onClick={onClose}>
-					Gå tillbaka
+					Starta frågesport
 				</BigButton>
+				<br />
+				<TextButton onClick={onClose}>
+					Gå tillbaka
+				</TextButton>
 				<CloseButton onClick={onClose}>
 					&times;
 				</CloseButton>

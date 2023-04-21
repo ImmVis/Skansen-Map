@@ -61,7 +61,7 @@ $spacing: 12px;
 
 .panel {
 	width: 100%;
-	height: 100%;
+	height: 100svh;
 	margin: calc($size + 2 * $spacing) auto;
 	padding-bottom: calc($size + 2 * $spacing);
 

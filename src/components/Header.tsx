@@ -17,9 +17,17 @@ export default function Header() {
 
 	const [open, setOpen] = useState<boolean>(true);
 	const [page, setPage] = useState<string>("start");
+	const [language, setLanguage] = useState<string>("se");
 
 
-	function changeLanguage() { }
+	function changeLanguage() {
+		if (language == "se") {
+			setLanguage("en");
+		}
+		else {
+			setLanguage("se");
+		}
+	}
 
 
 	function closePanel() {
@@ -48,7 +56,7 @@ export default function Header() {
 
 					<div className={style.buttonList}>
 						<button className={style.button} onClick={changeLanguage}>
-							<Image className={style.languageButton} alt="flag" src={flagSE} />
+							<Image className={style.languageButton} alt="flag" src={language == "se" ? flagSE : flagEN} />
 						</button>
 
 						<button className={style.button} onClick={openInfo}>
