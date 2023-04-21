@@ -44,22 +44,33 @@ export function PasswordPrompt({ symbols, password, onSuccess }: { symbols: stri
 
 function PasswordButton({ symbol, highlight, addInput }: { symbol: string, highlight: boolean, addInput: any }) {
 	const buttonRef = useRef<any>(null);
+	const [hold, setHold] = useState(false);
 
 	function onPointerDown() {
-		buttonRef.current?.classList.add(style.hold);
+		setHold(true);
 	}
 	function onPointerUp() {
-		buttonRef.current?.classList.remove(style.hold);
+		if (hold) {
+			addInput(symbol);
+		}
+		setHold(false);
+	}
+	function onPointerStop(event: any) {
+		if (event.pointerType == "mouse") {
+			setHold(false);
+		}
 	}
 
 	return (
 		<div
 			ref={buttonRef}
-			className={`${style.button} ${highlight && style.highlight}`}
+			className={`${style.button} ${hold && style.hold} ${highlight && style.highlight}`}
 			onPointerDown={onPointerDown}
 			onPointerUp={onPointerUp}
-			onPointerOut={onPointerUp}
-			onClick={() => addInput(symbol)}
+			onPointerLeave={onPointerStop}
+			onTouchEnd={onPointerUp}
+			onTouchStart={onPointerDown}
+			onContextMenu={(e) => e.preventDefault()}
 		>
 			<img src={`/content/symbols/${symbol}.svg`} />
 		</div>
