@@ -33,7 +33,6 @@ export default function App({ Component, pageProps }: AppProps) {
 				<meta name="theme-color" content="#ffffff" />
 			</Head>
 
-			{/* h-screen */}
 			<div className={`flex flex-col ${skansenFont.className}`} style={{ height: "100svh" }}>
 
 				<Header />

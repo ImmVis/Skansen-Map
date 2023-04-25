@@ -1,33 +1,50 @@
+$buttonHeight: 4px;
+$buttonHeightHold: 0px;
+$buttonRadius: 10px;
+
+
 .bigButton,
 .textButton {
 	margin: 12px;
 	padding: 6px 24px;
-	border-radius: 16px;
+	border-radius: $buttonRadius;
 
 	font-size: 1.0em;
 	font-weight: 700;
 
-	cursor: pointer;
 	user-select: none;
 	-webkit-tap-highlight-color: transparent;
 
 	transition: all 100ms;
 
 	&.hold {
-		transform: translateY(3px);
-		transition: all 40ms;
+		transform: translateY(calc($buttonHeight - $buttonHeightHold));
+		transition: all 0ms;
+		filter: brightness(0.8);
+	}
+
+	cursor: unset;
+	opacity: 0.6;
+
+	&.enabled {
+		cursor: pointer;
+		opacity: 1.0;
 	}
 }
 
 
 .bigButton {
-	background-color: var(--skansen-red);
-	color: var(--skansen-white);
+	// box-shadow: 0px 6px 0px rgb(107 114 128);
+	@apply bg-gray-500 text-white;
 
-	box-shadow: 0px 6px 0px var(--skansen-darkred);
+	&.enabled {
+		box-shadow: 0px $buttonHeight 0px var(--skansen-darkred);
+		background-color: var(--skansen-red);
+		color: var(--skansen-white);
+	}
 
 	&.hold {
-		box-shadow: 0px 3px 0px var(--skansen-darkred);
+		box-shadow: 0px $buttonHeightHold 0px var(--skansen-darkred);
 	}
 }
 

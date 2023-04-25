@@ -1,0 +1,52 @@
+$background: var(--skansen-red);
+$border: #83233d;
+$buttonHeight: 5px;
+$buttonHeightHold: 0px;
+$buttonHeightSelected: 2px;
+$buttonRadius: 10px;
+
+
+.question {
+	@apply snap-center mt-0 mb-16 px-4 text-left w-full flex flex-col justify-center;
+
+	&.locked {
+		opacity: 0.4;
+		pointer-events: none;
+		user-select: none;
+	}
+}
+
+.button {
+	padding: 6px 24px;
+	border-radius: $buttonRadius;
+
+	font-size: 1.0em;
+	font-weight: 700;
+
+	background-color: $background;
+	color: var(--skansen-white);
+
+	box-shadow: 0px $buttonHeight 0px $border;
+
+	cursor: pointer;
+	user-select: none;
+	-webkit-tap-highlight-color: transparent;
+	transition: all 100ms;
+
+	&.hold {
+		box-shadow: 0px $buttonHeightHold 0px $border;
+		transform: translateY(calc($buttonHeight - $buttonHeightHold));
+		transition: all 0ms;
+		filter: brightness(0.8);
+	}
+	
+	&.selected {
+		// @apply bg-red-300 text-black;
+		box-shadow: 0px $buttonHeightSelected 0px rgb(53, 4, 14);
+		// border: 4px solid orange;
+		background-color: #7c0428;
+		// box-shadow: 0px 2px 0px $border;
+		transform: translateY(calc($buttonHeight - $buttonHeightSelected));
+		// filter: brightness(0.7);
+	}
+}

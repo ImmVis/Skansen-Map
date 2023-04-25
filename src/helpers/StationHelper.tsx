@@ -7,7 +7,16 @@ import { MatterData, fetchAllFiles, parseFrontmatter, convertRelativeImagePath }
 export const folderPath = "/content/stations/";
 
 
-/** Zod schema for frontmatter */
+/** Zod schema for quiz frontmatter */
+const QuestionMeta = z.object({
+	image: z.string(),
+	question: z.string(),
+	options: z.array(z.string()),
+	correct: z.number(),
+	doubleColumn: z.optional(z.boolean()),
+});
+
+/** Zod schema for station frontmatter */
 const StationMeta = z.object({
 	id: z.string(),
 	name: z.string(),
@@ -24,21 +33,12 @@ const StationMeta = z.object({
 	password: z.array(
 		z.string()
 	),
-	quiz: z.array(
-		z.object({
-			image: z.string(),
-			question: z.string(),
-			option_1: z.string(),
-			option_2: z.string(),
-			option_3: z.string(),
-			option_4: z.string(),
-			correct: z.number(),
-		})
-	)
+	quiz: z.array(QuestionMeta)
 });
 
 /** Frontmatter variables at the top of the .mdx file */
 export type StationMeta = z.infer<typeof StationMeta>;
+export type QuestionMeta = z.infer<typeof QuestionMeta>;
 
 /** Contains frontmatter data for an station .mdx file */
 export interface StationData extends MatterData {

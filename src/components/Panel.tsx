@@ -1,29 +1,28 @@
+import { useEffect, useState } from "react";
 import { useStore } from "@nanostores/react";
 import Image from "next/image";
 import { MDXRemote } from "next-mdx-remote";
-import { StationData } from "@/helpers/StationHelper";
+import { QuestionMeta, StationData } from "@/helpers/StationHelper";
 import { getCustomComponents } from "@/components/CustomComponents";
-import { unlockedStations, unlockStationAtom, StationAtom } from "@/stores/stations";
+import { unlockedStations, atomUnlockStation, StationAtom, atomSubmitQuiz } from "@/stores/stationStorage";
 import { PasswordPrompt } from "@/components/Password";
 import { State } from "@/helpers/State";
 import { BigButton, CloseButton, TextButton } from "./Buttons";
 
 import startImage from "@/assets/skansen-treasureHunt-2youth.svg";
 import infoImage from "@/assets/skansen-treasureHunt-6youth.svg";
+import Quiz from "./Quiz";
 
 
 type PanelProps = {
 	state: State;
 	stations: StationData[];
 	selectedStation: StationData | undefined;
-	onStart: any;
-	onInfo: any;
 	onExplore: any;
-	onQuiz: any;
 	onClose: any;
 }
 
-export function Panel({ state, stations, selectedStation, onStart, onInfo, onExplore, onQuiz, onClose }: PanelProps) {
+export function Panel({ state, stations, selectedStation, onExplore, onClose }: PanelProps) {
 	const stores = useStore(unlockedStations);
 
 	function getStationAtom(stationId: string) {
@@ -34,14 +33,14 @@ export function Panel({ state, stations, selectedStation, onStart, onInfo, onExp
 		<div className="panel-content">
 
 			{/* No station selected */}
-			<div className={`flex flex-col h-full justify-center ${!(state == State.MapBrowse) && "hidden"}`}>
+			<div className={`flex flex-col h-full justify-center ${!(state == State.MapBrowse) ? "hidden" : ""}`}>
 				<span className="font-extrabold">Tryck på en station</span>
 			</div>
 
 
 			{/* Station preview info */}
 			{stations.map(station => (
-				<div key={station.data.id + "preview"} className={`flex flex-col h-full justify-center ${!(state == State.MapSelect && station == selectedStation) && "hidden"}`}>
+				<div key={station.data.id + "preview"} className={`flex flex-col h-full justify-center ${!(state == State.MapSelect && station == selectedStation) ? "hidden" : ""}`}>
 					<span className="text-xl font-extrabold pt-3">{station.data.name}</span>
 					<Image width={256} height={256} className="panel-preview-image flex-1" alt={station.data.image} src={station.data.image} />
 					<div className="mb-6">
@@ -62,8 +61,8 @@ export function Panel({ state, stations, selectedStation, onStart, onInfo, onExp
 
 			{/* Station detailed info */}
 			{stations.map(station => (
-				<div key={station.data.id + "detail"} className={`p-4 ${!(state == State.StationDetails && station == selectedStation) && "hidden"}`}>
-					<StationContent station={station} atom={getStationAtom(station.data.id)} onQuiz={onQuiz} onClose={onClose} />
+				<div key={station.data.id + "detail"} className={`p-4 ${!(state == State.StationDetails && station == selectedStation) ? "hidden" : ""}`}>
+					<StationContent station={station} atom={getStationAtom(station.data.id)} onClose={onClose} />
 				</div>
 			))}
 		</div>
@@ -71,34 +70,32 @@ export function Panel({ state, stations, selectedStation, onStart, onInfo, onExp
 }
 
 
-function StationContent({ station, atom, onQuiz, onClose }: { station: StationData, atom?: StationAtom, onQuiz: any, onClose: any }) {
+function StationContent({ station, atom, onClose }: { station: StationData, atom?: StationAtom, onClose: any }) {
+	let [mode, setMode] = useState<string>("info");
+
+	// useEffect(() => {}, [mode]);
+
 	function onPasswordCorrect() {
-		unlockStationAtom(station.data.id)
+		atomUnlockStation(station.data.id)
 	}
+
+	function onQuizComplete() {
+		atomSubmitQuiz(station.data.id);
+	}
+
+
+	if (!atom?.passwordCorrect) {
+		mode = "password";
+	}
+
+	if (atom?.quiz.submitted) {
+		mode = "result";
+	}
+
 
 	return (
 		<>
-			<div className={`${!atom?.passwordCorrect && "hidden"}`} >
-				<Image width={256} height={256} className="m-auto w-64 h-32 object-cover rounded-full" alt={station.data.image} src={station.data.image} />
-
-				<MDXRemote {...station.content} components={getCustomComponents(station.mdxPath)} />
-
-				<div className="mt-12 mb-8">
-					<BigButton onClick={onQuiz}>
-						Starta frågesport
-					</BigButton>
-					<br />
-					<TextButton onClick={onClose}>
-						Gå tillbaka
-					</TextButton>
-				</div>
-
-				<CloseButton onClick={onClose}>
-					&times;
-				</CloseButton>
-			</div>
-
-			<div className={`${atom?.passwordCorrect && "hidden"}`} >
+			<div className={`${mode != "password" ? "hidden" : ""}`} >
 				<h1>
 					Skriv in lösenord
 				</h1>
@@ -111,6 +108,52 @@ function StationContent({ station, atom, onQuiz, onClose }: { station: StationDa
 					Gå tillbaka
 				</BigButton>
 			</div>
+
+			<div className={`${mode != "info" ? "hidden" : ""}`} >
+				<Image width={256} height={256} className="m-auto w-64 h-32 object-cover rounded-full" alt={station.data.image} src={station.data.image} />
+
+				<MDXRemote {...station.content} components={getCustomComponents(station.mdxPath)} />
+
+				<div className="mt-12 mb-8">
+					<BigButton onClick={() => setMode("quiz")}>
+						Starta frågesport
+					</BigButton>
+					<br />
+					<TextButton onClick={onClose}>
+						Gå tillbaka
+					</TextButton>
+				</div>
+			</div>
+
+			<div className={`${mode != "quiz" ? "hidden" : ""}`} >
+				<h1>Frågesport</h1>
+
+				<Quiz stationId={station.data.id} questions={station.data.quiz} onComplete={onQuizComplete} />
+
+				<div className="mt-12 mb-8">
+					{/* <br /> */}
+					<TextButton onClick={() => setMode("info")}>
+						Gå tillbaka
+					</TextButton>
+				</div>
+			</div>
+
+			<div className={`${mode != "result" ? "hidden" : ""}`} >
+				<h1>Resultat</h1>
+
+				<p>Bra gjort!</p>
+				<p>Du svarade rätt på {atom?.quiz.correct.filter(Boolean).length} av {atom?.quiz.correct.length} frågor.</p>
+
+				<div className="mt-12 mb-8">
+					<BigButton onClick={() => setMode("info")}>
+						Gå tillbaka
+					</BigButton>
+				</div>
+			</div>
+
+			<CloseButton onClick={onClose}>
+				&times;
+			</CloseButton>
 		</>
 	);
 }

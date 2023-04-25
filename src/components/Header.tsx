@@ -3,7 +3,6 @@ import { useStore } from '@nanostores/react';
 import Image from "next/image";
 
 import style from "@/styles/Header.module.scss";
-import { visitedStations } from '@/stores/stations';
 import { BigButton, TextButton } from './Buttons';
 
 import flagSE from "@/assets/icon-menu-flag-se.png";
@@ -13,8 +12,6 @@ import infoImage from "@/assets/skansen-treasureHunt-6youth.svg";
 
 
 export default function Header() {
-	const list = useStore(visitedStations);
-
 	const [open, setOpen] = useState<boolean>(true);
 	const [page, setPage] = useState<string>("start");
 	const [language, setLanguage] = useState<string>("se");

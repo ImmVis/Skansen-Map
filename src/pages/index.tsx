@@ -4,7 +4,7 @@ import { Panel } from "@/components/Panel";
 import { State } from "@/helpers/State";
 
 import MyMap from "@/components/GoogleMap";
-import { getStationAtom, visitStationAtom } from "@/stores/stations";
+import { getStationAtom, atomVisitStation } from "@/stores/stationStorage";
 // const MyMap = dynamic(() => import("@/components/LeafletMap"), { ssr: false });
 
 
@@ -32,7 +32,7 @@ export default function Home({ stations, googleMapsApiKey }: { stations: Station
 			setState(State.MapBrowse);
 		}
 	}
-	
+
 	const currentStation: StationData | undefined = stations.find(station => station.data.id == selectedStation);
 
 	const [visitingStation, setVisitingStation] = useState("");
@@ -40,7 +40,7 @@ export default function Home({ stations, googleMapsApiKey }: { stations: Station
 	function onVisitStation(station: StationData | null) {
 		if (station) {
 			setVisitingStation(station.data.id);
-			visitStationAtom(station.data.id);
+			atomVisitStation(station.data.id);
 			setState(State.StationDetails);
 		}
 		else {
@@ -52,10 +52,10 @@ export default function Home({ stations, googleMapsApiKey }: { stations: Station
 
 	// let state = PanelState.Start;
 	// if (!selectedStation) {
-		// state = PanelState.Map;
+	// state = PanelState.Map;
 	// }
 	// if (visitingStation) {
-		// state = PanelState.Station;
+	// state = PanelState.Station;
 	// }
 
 
@@ -64,7 +64,7 @@ export default function Home({ stations, googleMapsApiKey }: { stations: Station
 
 
 	return (
-		<main className="wrapper" style={{minHeight: '-webkit-fill-available'}}>
+		<main className="wrapper" style={{ minHeight: '-webkit-fill-available' }}>
 			<div className={`map-wrapper ${mapHide ? "active" : ""}`}>
 				<MyMap googleMapsApiKey={googleMapsApiKey} center={center} stations={stations} selectedStation={currentStation} onStationClick={onStationClick}></MyMap>
 			</div>

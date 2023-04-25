@@ -11,7 +11,7 @@ export function PasswordPrompt({ symbols, password, onSuccess }: { symbols: stri
 		if (newInput.length < password.length) {
 			dotsRef.current?.classList.remove(style.incorrect);
 		}
-		else if (newInput.length == password.length) {
+		else if (newInput.length >= password.length) {
 			if (JSON.stringify(newInput) == JSON.stringify(password)) {
 				onSuccess();
 			}
@@ -43,7 +43,6 @@ export function PasswordPrompt({ symbols, password, onSuccess }: { symbols: stri
 }
 
 function PasswordButton({ symbol, highlight, addInput }: { symbol: string, highlight: boolean, addInput: any }) {
-	const buttonRef = useRef<any>(null);
 	const [hold, setHold] = useState(false);
 
 	function onClick() {
@@ -55,7 +54,6 @@ function PasswordButton({ symbol, highlight, addInput }: { symbol: string, highl
 
 	return (
 		<div
-			ref={buttonRef}
 			className={`${style.button} ${hold && style.hold} ${highlight && style.highlight}`}
 			onPointerDown={() => setHold(true)}
 			onTouchStart={() => setHold(true)}

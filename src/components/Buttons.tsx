@@ -2,7 +2,7 @@ import { useRef } from "react";
 import style from "@/styles/Buttons.module.scss";
 
 
-export function BigButton({ children, onClick }: { children: any, onClick: any }) {
+export function BigButton({ children, onClick, enabled=true }: { children: any, onClick: any, enabled?: boolean }) {
 	const buttonRef = useRef<any>(null);
 
 	function onPointerDown() {
@@ -15,11 +15,12 @@ export function BigButton({ children, onClick }: { children: any, onClick: any }
 	return (
 		<button
 			ref={buttonRef}
-			className={style.bigButton}
+			className={`${style.bigButton} ${enabled ? style.enabled : ""}`}
 			onClick={onClick}
 			onPointerDown={onPointerDown}
 			onPointerUp={onPointerUp}
 			onPointerOut={onPointerUp}
+			disabled={!enabled}
 		>
 			{children}
 		</button>
@@ -27,7 +28,7 @@ export function BigButton({ children, onClick }: { children: any, onClick: any }
 }
 
 
-export function TextButton({ children, onClick }: { children: any, onClick: any }) {
+export function TextButton({ children, onClick, enabled=true }: { children: any, onClick: any, enabled?: boolean }) {
 	const buttonRef = useRef<any>(null);
 
 	function onPointerDown() {
@@ -40,7 +41,7 @@ export function TextButton({ children, onClick }: { children: any, onClick: any 
 	return (
 		<button
 			ref={buttonRef}
-			className={style.textButton}
+			className={`${style.textButton} ${enabled ? style.enabled : ""}`}
 			onClick={onClick}
 			onPointerDown={onPointerDown}
 			onPointerUp={onPointerUp}
