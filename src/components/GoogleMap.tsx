@@ -1,6 +1,5 @@
 import { useState, useCallback } from "react";
 import { GoogleMap, useJsApiLoader, Circle, GroundOverlay, Marker } from '@react-google-maps/api';
-import { bounds } from "leaflet";
 
 const containerStyle = {
 	width: '100%',
@@ -36,7 +35,21 @@ function MyComponent({ googleMapsApiKey, center, stations, selectedStation, onSt
 
 	const onUnmount = useCallback(function callback(map: any) {
 		setMap(null)
-	}, [])
+	}, []);
+
+	function getUserLocation() {
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(position => {
+				const userLocation = {
+					lat: position.coords.latitude,
+					lng: position.coords.longitude,
+				};
+				// map.setCenter(userLocation);
+			});
+		} else {
+			console.error("Unable to use geolocation");
+		}
+	};
 
 	const skansenBounds = {
 		north: 59.330333,
