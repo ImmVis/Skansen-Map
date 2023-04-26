@@ -10,8 +10,6 @@ import { getStationAtom, atomVisitStation } from "@/stores/stationStorage";
 
 
 export default function Home({ stations, googleMapsApiKey, test }: { stations: StationData[], googleMapsApiKey: string, test: string }) {
-	console.log("Key found!", googleMapsApiKey, test);
-
 	const [center, setCenter] = useState({
 		lat: 59.32650223048287,
 		lng: 18.10463536192017
@@ -88,7 +86,6 @@ export async function getStaticProps() {
 		props: {
 			stations: await getAllStations(),
 			googleMapsApiKey: process.env.SECRET_API_KEY,
-			test: JSON.stringify(process.env)
 		}
 	};
 }
