@@ -5,6 +5,7 @@ import Image from "next/image";
 import style from "@/styles/Header.module.scss";
 import { BigButton, TextButton } from './Buttons';
 
+import skansenLogo from "@/assets/logo-skansen.svg";
 import flagSE from "@/assets/icon-menu-flag-se.png";
 import flagEN from "@/assets/icon-menu-flag-en.png";
 import startImage from "@/assets/skansen-treasureHunt-2youth.svg";
@@ -54,7 +55,7 @@ export default function Header() {
 			<div className={style.background}>
 				<div className={style.content}>
 					<button className={style.button} onClick={openStart}>
-						<img className={style.skansenLogo} src="/logo.svg" />
+						<Image className={style.skansenLogo} width={200} height={50} alt="Skansen logo" src={skansenLogo} />
 					</button>
 
 					<div className={style.buttonList}>
@@ -117,7 +118,7 @@ export default function Header() {
 						<h1 className="font-extrabold">
 							Instruktioner
 						</h1>
-						<img src="https://picsum.photos/520/300"></img>
+						<Image width={520} height={300} alt="Instructions image" src="https://picsum.photos/520/300" />
 						<p>
 							Consectetur est minim occaecat ex magna anim sint pariatur culpa velit.
 						</p>

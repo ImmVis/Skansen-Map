@@ -13,11 +13,6 @@ export default function Quiz({ stationId, questions, onComplete }: { stationId: 
 
 	const quizAtom = stations.find(s => s.id == stationId);
 
-	// useEffect(() => {
-		// console.log("Quiz useEffect!");
-	// }, [stations]);
-
-	// const answerCount = quizAtom?.quiz.answers.length;
 	let answerCount = 0;
 	if (quizAtom) {
 		for (const answer of quizAtom.quiz.answers) {
@@ -33,9 +28,8 @@ export default function Quiz({ stationId, questions, onComplete }: { stationId: 
 
 	return (
 		<>
-			{JSON.stringify(quizAtom?.quiz.answers)}
 			{questions.map((question: any, index: number) =>
-				<Question key={index} stationId={stationId} question={question} index={index} max={questions.length} locked={index > answerCount} />
+				<Question key={index} stationId={stationId} question={question} index={index} max={questions.length} selected={quizAtom ? quizAtom.quiz.answers[index] : -1} locked={index > answerCount} />
 			)}
 
 			<BigButton onClick={() => onComplete("result")} enabled={answerCount == questions.length}>
@@ -45,17 +39,17 @@ export default function Quiz({ stationId, questions, onComplete }: { stationId: 
 	);
 }
 
-function Question({ stationId, question, index, max, locked }: { stationId: string, question: QuestionMeta, index: number, max: number, locked: boolean }) {
-	const [selected, setSelected] = useState(-1);
+function Question({ stationId, question, index, max, selected, locked }: { stationId: string, question: QuestionMeta, index: number, max: number, selected: number, locked: boolean }) {
+	// const [selected, setSelected] = useState(-1);
 
 	function selectOption(optionIndex: number) {
 		if (selected != optionIndex) {
-			setSelected(optionIndex);
+			// setSelected(optionIndex);
 			const correct = (question.correct - 1 == optionIndex);
 			atomSetQuizAnswer(stationId, index, optionIndex, correct);
 		}
 		else {
-			setSelected(-1);
+			// setSelected(-1);
 			atomSetQuizAnswer(stationId, index, -1, false);
 		}
 	}

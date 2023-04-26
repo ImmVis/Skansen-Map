@@ -37,7 +37,7 @@ export function Panel({ stations, selectedStation, onExplore, onClose }: PanelPr
 				setStationState(StationState.Password);
 			}
 		}
-	}, [pageState]);
+	}, [pageState, selectedStation]);
 
 	return (
 		<div className="panel-content">
@@ -99,10 +99,7 @@ export function Panel({ stations, selectedStation, onExplore, onClose }: PanelPr
 function StationContent({ station, atom, onClose }: { station: StationData, atom: StationAtom, onClose: () => void }) {
 	const stationState = useStore(stationStateAtom);
 
-	// useEffect(() => {}, [mode]);
-
 	function onPasswordCorrect() {
-		console.log("YIPPIE!!!");
 		atomUnlockStation(station.data.id);
 		setStationState(StationState.Information);
 	}
@@ -111,15 +108,6 @@ function StationContent({ station, atom, onClose }: { station: StationData, atom
 		atomSubmitQuiz(station.data.id);
 		setStationState(StationState.Result);
 	}
-
-
-	// if (!atom?.passwordCorrect) {
-	// 	mode = "password";
-	// }
-
-	// if (atom?.quiz.submitted) {
-	// 	mode = "result";
-	// }
 
 
 	return (
@@ -182,7 +170,7 @@ function StationContent({ station, atom, onClose }: { station: StationData, atom
 				<>
 					<h1>Resultat</h1>
 
-					<img src="https://picsum.photos/520/250"></img>
+					<Image width={520} height={250} alt="Result image" src="https://picsum.photos/520/250" />
 
 					<p>Bra gjort!</p>
 					<p>Du svarade rätt på {atom.quiz.correct.filter(Boolean).length} av {atom.quiz.correct.length} frågor.</p>

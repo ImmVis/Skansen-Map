@@ -25,16 +25,16 @@ export function convertRelativeImagePath(mdxPath: string, imagePath: string): st
 	return imagePath;
 }
 
-export function makeCustomImageComponent(mdxPath: string) {
-	function MyImage({ src, ...props }: JSX.IntrinsicElements["img"]) {
-		// const imagePath = path.join("/", folderPath, src!);
-		const imagePath = convertRelativeImagePath(mdxPath, src!)
-		return (
-			<img src={imagePath} {...props} alt={imagePath}></img>
-		);
-	}
-	return MyImage;
-}
+// export function makeCustomImageComponent(mdxPath: string) {
+// 	function MyImage({ src, ...props }: JSX.IntrinsicElements["img"]) {
+// 		// const imagePath = path.join("/", folderPath, src!);
+// 		const imagePath = convertRelativeImagePath(mdxPath, src!)
+// 		return (
+// 			<img src={imagePath} {...props} alt={imagePath}></img>
+// 		);
+// 	}
+// 	return MyImage;
+// }
 
 
 function Video({ src }: { src: string }) {
@@ -66,7 +66,7 @@ function Video({ src }: { src: string }) {
 
 export function getCustomComponents(mdxPath: string) {
 	return {
-		img: makeCustomImageComponent(mdxPath),
+		// img: makeCustomImageComponent(mdxPath),
 		Video
 	};
 }

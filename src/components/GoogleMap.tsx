@@ -31,7 +31,7 @@ function MyComponent({ googleMapsApiKey, center, stations, selectedStation, onSt
 		map.panTo(center);
 
 		setMap(map)
-	}, [])
+	}, [center])
 
 	const onUnmount = useCallback(function callback(map: any) {
 		setMap(null)

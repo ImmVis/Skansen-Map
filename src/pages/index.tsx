@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useStore } from "@nanostores/react";
 import { StationData, getAllStations } from "@/helpers/StationHelper";
 import { Panel } from "@/components/Panel";
-import { pageStateAtom, PageState, setPageState, setStationState, StationState } from "@/stores/states";
+import { pageStateAtom, PageState, setPageState, stationStateAtom, setStationState, StationState } from "@/stores/states";
 
 import MyMap from "@/components/GoogleMap";
 import { getStationAtom, atomVisitStation } from "@/stores/stationStorage";
@@ -17,7 +17,8 @@ export default function Home({ stations, googleMapsApiKey }: { stations: Station
 		lng: 18.10463536192017
 	});
 
-	const state = useStore(pageStateAtom);
+	const pageState = useStore(pageStateAtom);
+	const stationState = useStore(stationStateAtom);
 
 	const [selectedStation, setStation] = useState("");
 	function onStationClick(station: StationData | null) {
@@ -51,11 +52,11 @@ export default function Home({ stations, googleMapsApiKey }: { stations: Station
 	const panel = useRef<HTMLDivElement>(null);
 	useEffect(() => {
 		panel.current?.scrollTo(0, 0);
-	}, [state]);
+	}, [stationState]);
 
 
-	const panelFullscreen = !(state == PageState.MapBrowse);
-	const mapHide = !(state == PageState.MapBrowse || state == PageState.MapPreview);
+	const panelFullscreen = (pageState != PageState.MapBrowse);
+	const mapHide = (pageState == PageState.StationDetails);
 
 
 	return (
