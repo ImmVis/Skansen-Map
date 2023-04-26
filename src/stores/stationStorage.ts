@@ -1,4 +1,5 @@
 // store/stations.ts
+import { StationMeta } from '@/helpers/StationHelper';
 import { atom, computed } from 'nanostores';
 
 
@@ -14,28 +15,27 @@ export interface StationAtom {
 	}
 }
 
-const atomStations = atom<StationAtom[]>([]);
+export const atomStations = atom<StationAtom[]>([]);
 
-export function getStationAtom(stationId: string) {
+export function getStationAtom(stationId: string): StationAtom {
 	const station = atomStations.get().find(s => s.id == stationId);
 	if (station) {
 		return station;
 	}
-	else {
-		const newStation: StationAtom = {
-			id: stationId,
-			hasVisited: false,
-			visitCount: 0,
-			passwordCorrect: false,
-			quiz: {
-				answers: [],
-				correct: [],
-				submitted: false
-			}
-		};
-		atomStations.set([...atomStations.get(), newStation]);
-		return newStation;
-	}
+
+	const newStation: StationAtom = {
+		id: stationId,
+		hasVisited: false,
+		visitCount: 0,
+		passwordCorrect: false,
+		quiz: {
+			answers: [],
+			correct: [],
+			submitted: false
+		}
+	};
+	atomStations.set([...atomStations.get(), newStation]);
+	return newStation;
 }
 
 
@@ -61,7 +61,6 @@ export function atomSetQuizAnswer(stationId: string, questionIndex: number, opti
 
 export function atomSubmitQuiz(stationId: string) {
 	const station = getStationAtom(stationId);
-	// station.quiz.correct = ;
 	station.quiz.submitted = true;
 	atomStations.notify();
 }
@@ -77,7 +76,7 @@ export const unlockedStations = computed(atomStations, allStations =>
 
 export const allQuizzes = computed(atomStations, allStations =>
 	// allStations.filter(station => station.quiz.answers.every(answer => 
-		// (answer != -1 && answer != null)
+	// (answer != -1 && answer != null)
 	// ))
 	allStations
 )

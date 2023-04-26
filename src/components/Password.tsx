@@ -66,3 +66,16 @@ function PasswordButton({ symbol, highlight, addInput }: { symbol: string, highl
 		</div>
 	);
 }
+
+
+export function PasswordPreview({ symbols, password }: { symbols: string[], password: string[] }) {
+	return (
+		<div className={style.previewWrapper}>
+			{password.map((symbol: string) =>
+				<div className={style.previewButton}>
+					<img src={`/content/symbols/${symbol}.svg`} />
+				</div>
+			)}
+		</div >
+	);
+}

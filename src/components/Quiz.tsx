@@ -5,17 +5,17 @@ import { QuestionMeta } from "@/helpers/StationHelper";
 import { BigButton } from "./Buttons";
 import style from "@/styles/Quiz.module.scss";
 
-import { allQuizzes, atomSetQuizAnswer } from "@/stores/stationStorage";
+import { visitedStations, atomSetQuizAnswer } from "@/stores/stationStorage";
 
 
 export default function Quiz({ stationId, questions, onComplete }: { stationId: string, questions: QuestionMeta[], onComplete: any }) {
-	const quizzes = useStore(allQuizzes);
+	const stations = useStore(visitedStations);
+
+	const quizAtom = stations.find(s => s.id == stationId);
 
 	// useEffect(() => {
-	// atomResetQuiz(stationId, quiz);
-	// }, []);
-
-	const quizAtom = quizzes.find(s => s.id == stationId);
+		// console.log("Quiz useEffect!");
+	// }, [stations]);
 
 	// const answerCount = quizAtom?.quiz.answers.length;
 	let answerCount = 0;
@@ -30,17 +30,18 @@ export default function Quiz({ stationId, questions, onComplete }: { stationId: 
 		}
 	}
 
+
 	return (
-		<div className="">
+		<>
 			{JSON.stringify(quizAtom?.quiz.answers)}
 			{questions.map((question: any, index: number) =>
-				<Question stationId={stationId} question={question} index={index} max={questions.length} locked={index > answerCount} />
+				<Question key={index} stationId={stationId} question={question} index={index} max={questions.length} locked={index > answerCount} />
 			)}
 
 			<BigButton onClick={() => onComplete("result")} enabled={answerCount == questions.length}>
 				Kontrollera svar
 			</BigButton>
-		</div>
+		</>
 	);
 }
 
@@ -66,7 +67,7 @@ function Question({ stationId, question, index, max, locked }: { stationId: stri
 			<h4 className="mt-4 mb-6">{question.question}</h4>
 			<div className={`grid gap-x-4 gap-y-4 ${question.doubleColumn ? "grid-cols-2" : "grid-cols-1"}`}>
 				{question.options.map((text: string, optionIndex: number) =>
-					<Option correct={question.correct - 1 == optionIndex} selected={selected == optionIndex} onSelect={() => selectOption(optionIndex)}>
+					<Option key={optionIndex} correct={question.correct - 1 == optionIndex} selected={selected == optionIndex} onSelect={() => selectOption(optionIndex)}>
 						{text}
 					</Option>
 				)}
@@ -95,7 +96,7 @@ function Option({ children, correct, selected, onSelect }: { children: any, corr
 			onTouchEnd={onClick}
 			onContextMenu={(e) => e.preventDefault()}
 		>
-			{...children} ({JSON.stringify(correct)})
+			{...children}
 		</div>
 		// <div className="col-span-1 bg-skansen-red text-white hover:bg-rose-500 text-lg font-bold rounded-md px-3 py-2 tracking-tight">
 		// {...children}
