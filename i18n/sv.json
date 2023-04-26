@@ -1,0 +1,6 @@
+{
+	"myKey": "svensk text",
+	"nested": {
+		"key": "inre översättning"
+	}
+}

@@ -15,14 +15,15 @@ const nextConfig = {
   // basePath: isProd ? '/Skansen-Map' : '',
   // assetPrefix: isProd ? '/Skansen-Map/' : '',
   // exportPathMap: '/out',
-  async rewrites() {
-    return [
+  output: "export",
+  // async rewrites() {
+    // return [
       // {
         // source: '/:any*',
         // destination: '/',
       // }
-    ];
-  }
+    // ];
+  // }
 }
 
 module.exports = nextConfig

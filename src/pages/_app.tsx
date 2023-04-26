@@ -4,11 +4,22 @@ import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import Header from '@/components/Header'
 
+import { useStore } from "@nanostores/react";
+import { StationState, stationStateAtom } from "@/stores/states";
+
+import { useWindowSize } from 'usehooks-ts';
+import Confetti from 'react-confetti';
+
 import { Mulish } from 'next/font/google'
 const skansenFont = Mulish({ subsets: ['latin'] })
 
 
 export default function App({ Component, pageProps }: AppProps) {
+	const { width, height } = useWindowSize();
+
+	const stationState = useStore(stationStateAtom);
+
+
 	return (
 		<>
 			<Head>
@@ -40,6 +51,12 @@ export default function App({ Component, pageProps }: AppProps) {
 				<main className='w-full mx-auto flex flex-1 overflow-auto'>
 					<Component {...pageProps} />
 				</main>
+
+				<Confetti
+					width={width}
+					height={height}
+					numberOfPieces={stationState == StationState.Result ? 70 : 0}
+				/>
 
 			</div>
 		</>

@@ -9,6 +9,9 @@ import flagSE from "@/assets/icon-menu-flag-se.png";
 import flagEN from "@/assets/icon-menu-flag-en.png";
 import startImage from "@/assets/skansen-treasureHunt-2youth.svg";
 import infoImage from "@/assets/skansen-treasureHunt-6youth.svg";
+import Butterfly from './Butterfly';
+
+import { useTranslation, useLanguageQuery, LanguageSwitcher } from 'next-export-i18n';
 
 
 export default function Header() {
@@ -26,16 +29,19 @@ export default function Header() {
 		}
 	}
 
+	// const { t } = useTranslation();
+	// const [query] = useLanguageQuery();
+
 
 	function closePanel() {
 		setOpen(false);
 	}
-	
+
 	function openStart() {
 		setOpen(true);
 		setPage("start");
 	}
-	
+
 	function openInfo() {
 		setOpen(true);
 		setPage("info");
@@ -44,17 +50,22 @@ export default function Header() {
 
 	return (
 		<>
+			{/* Actual header */}
 			<div className={style.background}>
 				<div className={style.content}>
-
 					<button className={style.button} onClick={openStart}>
 						<img className={style.skansenLogo} src="/logo.svg" />
 					</button>
 
 					<div className={style.buttonList}>
-						<button className={style.button} onClick={changeLanguage}>
-							<Image className={style.languageButton} alt="flag" src={language == "se" ? flagSE : flagEN} />
-						</button>
+
+						{/* <button className={style.button} onClick={changeLanguage}> */}
+							{/* <Image className={style.languageButton} alt="flag" src={language == "se" ? flagSE : flagEN} /> */}
+						{/* </button> */}
+						{/* <p><LanguageSwitcher lang={"sv"}>på svenska</LanguageSwitcher></p> */}
+						{/* <p><LanguageSwitcher lang={"en"}>in english</LanguageSwitcher></p> */}
+						{/* <p>{t("myKey")}</p> */}
+						{/* <p>{t("nested.key")}</p> */}
 
 						<button className={style.button} onClick={openInfo}>
 							<div className={style.infoButton}>
@@ -66,24 +77,28 @@ export default function Header() {
 			</div>
 
 
+			{/* Header dropdown panel */}
 			<div className={`${style.panel} ${!open ? style.hidePanel : ""}`}>
 				<div className={style.panelContent}>
 
 					{/* Start page */}
 					<div className={`${style.startPage} ${page != "start" ? style.hidePage : ""}`}>
 						<small>
-							Välkommen till
+							Välkommen att testa demoversionen av
 						</small>
 						<h1 className="font-extrabold">
-							Skansens Tips&shy;promenad
+							Skansens tips&shy;promenad
 						</h1>
 						<p>
+							Under 2023 kan du vara med och testa vår digitala tipspromenad.
 							Ta en tur i parken och utforska natur, djur och kultur.
 							Vid varje station hittar du en kod bestående av symboler.
 							Tryck in rätt kod i mobilen för att låsa upp stationen.
 							Se, lyssna och läs och svara på några kluriga frågor.
 							Lycka till!
 						</p>
+
+						{/* <Butterfly /> */}
 
 						<div className="text-center">
 							<BigButton onClick={closePanel}>
@@ -102,11 +117,12 @@ export default function Header() {
 						<h1 className="font-extrabold">
 							Instruktioner
 						</h1>
+						<img src="https://picsum.photos/520/300"></img>
 						<p>
-							Consectetur est minim occaecat ex magna anim sint pariatur culpa velit. Mollit aliqua non nisi aliquip quis cupidatat ut qui ullamco quis aliqua ea. Cillum quis ut exercitation veniam adipisicing commodo commodo. Anim esse commodo est non minim irure esse officia. Commodo est enim quis tempor duis labore nostrud consectetur aute qui qui. Eu reprehenderit anim adipisicing cillum ullamco ex Lorem elit ea.
+							Consectetur est minim occaecat ex magna anim sint pariatur culpa velit.
 						</p>
 						<p>
-							Kom tillbaka senare.
+							Laborum magna esse adipisicing tempor id in labore. Veniam nisi laboris duis ad labore elit consectetur et irure. Nostrud enim nostrud aliqua dolor amet.
 						</p>
 
 						<div className="text-center">
