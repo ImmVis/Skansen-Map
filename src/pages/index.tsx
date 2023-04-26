@@ -9,8 +9,8 @@ import { getStationAtom, atomVisitStation } from "@/stores/stationStorage";
 // const MyMap = dynamic(() => import("@/components/LeafletMap"), { ssr: false });
 
 
-export default function Home({ stations, googleMapsApiKey }: { stations: StationData[], googleMapsApiKey: string }) {
-	console.log("Key found!", googleMapsApiKey);
+export default function Home({ stations, googleMapsApiKey, test }: { stations: StationData[], googleMapsApiKey: string, test: string }) {
+	console.log("Key found!", googleMapsApiKey, test);
 
 	const [center, setCenter] = useState({
 		lat: 59.32650223048287,
@@ -88,6 +88,7 @@ export async function getStaticProps() {
 		props: {
 			stations: await getAllStations(),
 			googleMapsApiKey: process.env.SECRET_API_KEY,
+			test: JSON.stringify(process.env)
 		}
 	};
 }
