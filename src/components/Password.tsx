@@ -72,7 +72,7 @@ export function PasswordPreview({ symbols, password }: { symbols: string[], pass
 	return (
 		<div className={style.previewWrapper}>
 			{password.map((symbol: string) =>
-				<div className={style.previewButton}>
+				<div key={symbol} className={style.previewButton}>
 					<img src={`/content/symbols/${symbol}.svg`} />
 				</div>
 			)}
