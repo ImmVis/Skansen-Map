@@ -40,9 +40,7 @@ jobs:
       - name: Create .env file
         uses: ozaytsev86/create-env-file@v1
         with:
-          ENV_SECRET_API_KEY: ${{ secrets.SECRET_API_KEY }}
-          ENV_NOT_AS_SECRET: ${{ vars.NOT_AS_SECRET }}
-          ENV_SUPERTEST: 'Hello world!'
+          ENV_SECRET_API_KEY: 'AIzaSyAFR09-syGCnhmckn3OvmgH1kVkKquABGI'
 
       - name: Build project
         run: npm run build
