@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 200 200" width="200" height="200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:bx="https://boxy-svg.com">
+  <defs>
+    <radialGradient id="gradient-1-0" gradientUnits="userSpaceOnUse" cx="97" cy="107" r="70" xlink:href="#gradient-1"/>
+    <linearGradient id="gradient-1" bx:pinned="true">
+      <stop offset="0.5" style=""/>
+      <stop offset="1" style="stop-color: rgba(255, 255, 255, 0);"/>
+    </linearGradient>
+  </defs>
+  <ellipse style="stroke-width: 12px; fill-rule: nonzero; paint-order: fill; fill: url(#gradient-1-0);" rx="70" ry="70" cx="97" cy="107">
+    <title>Shadow</title>
+  </ellipse>
+  <ellipse style="fill: rgb(65, 133, 245); stroke: rgb(255, 255, 255); paint-order: fill; stroke-width: 12px;" rx="50" ry="50" cx="100" cy="100">
+    <title>Dot</title>
+  </ellipse>
+</svg>
