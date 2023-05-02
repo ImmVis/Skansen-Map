@@ -4,7 +4,7 @@ import { StationData, getAllStations } from "@/helpers/StationHelper";
 import { Panel } from "@/components/Panel";
 import { pageStateAtom, PageState, setPageState, stationStateAtom, setStationState, StationState } from "@/stores/states";
 
-import MyMap from "@/components/GoogleMap";
+import { MyMap } from "@/components/GoogleMap";
 import { getStationAtom, atomVisitStation } from "@/stores/stationStorage";
 // const MyMap = dynamic(() => import("@/components/LeafletMap"), { ssr: false });
 
@@ -51,6 +51,12 @@ export default function Home({ stations, googleMapsApiKey, test }: { stations: S
 	useEffect(() => {
 		panel.current?.scrollTo(0, 0);
 	}, [stationState]);
+
+	// useEffect(() => {
+	// 	if (pageState == PageState.MapBrowse) {
+	// 		const pos = watchUserLocation(setCenter);
+	// 	}
+	// }, [pageState]);
 
 
 	const panelFullscreen = (pageState != PageState.MapBrowse);

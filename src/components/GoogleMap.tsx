@@ -1,12 +1,13 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { GoogleMap, useJsApiLoader, Circle, GroundOverlay, Marker } from '@react-google-maps/api';
+import { UserLocation } from "./UserLocation";
 
 const containerStyle = {
 	width: '100%',
 	height: '100%'
 };
 
-function MyComponent({ googleMapsApiKey, center, stations, selectedStation, onStationClick }: any) {
+export function MyMap({ googleMapsApiKey, center, stations, selectedStation, onStationClick }: any) {
 	const { isLoaded } = useJsApiLoader({
 		id: 'google-map-script',
 		googleMapsApiKey: googleMapsApiKey
@@ -37,20 +38,6 @@ function MyComponent({ googleMapsApiKey, center, stations, selectedStation, onSt
 		setMap(null)
 	}, []);
 
-	function getUserLocation() {
-		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(position => {
-				const userLocation = {
-					lat: position.coords.latitude,
-					lng: position.coords.longitude,
-				};
-				// map.setCenter(userLocation);
-			});
-		} else {
-			console.error("Unable to use geolocation");
-		}
-	};
-
 	const skansenBounds = {
 		north: 59.330333,
 		south: 59.322608,
@@ -69,10 +56,10 @@ function MyComponent({ googleMapsApiKey, center, stations, selectedStation, onSt
 
 	map?.panTo(center);
 	map?.setOptions({
-		restriction: !selectedStation ? {
-			latLngBounds: cameraBounds,
-			strictBounds: false
-		} : null,
+		// restriction: !selectedStation ? {
+		// 	latLngBounds: cameraBounds,
+		// 	strictBounds: false
+		// } : null,
 		gestureHandling: !selectedStation ? "greedy" : "none",
 		maxZoom: 19
 	});
@@ -129,9 +116,11 @@ function MyComponent({ googleMapsApiKey, center, stations, selectedStation, onSt
 						animation={selectedStation == station ? google.maps.Animation.BOUNCE : undefined}
 						options={{
 							icon: {
-								url: "./marker.gif",
-								scaledSize: new google.maps.Size(50, 50),
-								anchor: new google.maps.Point(25, 50),
+								// url: "./marker.gif",
+								// url: "./content/stations/stad/geoTag-house.svg",
+								url: station.data.icon,
+								scaledSize: new google.maps.Size(80, 80),
+								anchor: new google.maps.Point(40, 80),
 
 								// url: station.data.icon,
 								// scaledSize: new google.maps.Size(100, 100),
@@ -140,27 +129,9 @@ function MyComponent({ googleMapsApiKey, center, stations, selectedStation, onSt
 						<p>{station.data.name}</p>
 					</Marker>
 				))}
+
+				<UserLocation />
 			</GoogleMap>
 		</div>
 	) : <></>
 }
-
-export default MyComponent;
-// export default React.memo(MyComponent)
-
-
-
-/*
-const { GoogleMap, LoadScript } = require("../../");
-const ScriptLoaded = require("../../docs/ScriptLoaded").default;
-
-<ScriptLoaded>
-	<GoogleMap>
-		<GroundOverlay
-			key={'url'}
-			url='https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg'
-			bounds={bounds}
-		/>
-	</GoogleMap>
-</ScriptLoaded>
-*/
