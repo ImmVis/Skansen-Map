@@ -10,7 +10,7 @@
   <ellipse style="stroke-width: 12px; fill-rule: nonzero; paint-order: fill; fill: url(#gradient-1-0);" rx="70" ry="70" cx="97" cy="107">
     <title>Shadow</title>
   </ellipse>
-  <ellipse style="fill: rgb(65, 133, 245); stroke: rgb(255, 255, 255); paint-order: fill; stroke-width: 12px;" rx="50" ry="50" cx="100" cy="100">
+  <ellipse style="stroke: rgb(255, 255, 255); paint-order: fill; stroke-width: 12px; fill: rgb(183, 51, 55);" rx="50" ry="50" cx="100" cy="100">
     <title>Dot</title>
   </ellipse>
 </svg>
