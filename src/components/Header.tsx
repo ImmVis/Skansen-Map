@@ -88,12 +88,14 @@ export default function Header() {
 							Välkommen att testa demoversionen av
 						</small>
 						<h1 className="font-extrabold">
-							Skansens tips&shy;promenad
+							Skansens digitala tipspromenad
 						</h1>
 						<p>
+							Lär dig om den biologiska mångfalden i vår svenska natur!
 							Under 2023 kan du vara med och testa vår digitala tipspromenad.
-							Ta en tur i parken och utforska natur, djur och kultur.
-							Vid varje station hittar du en kod bestående av symboler.
+							Ta en tur runt Skansen och utforska natur, djur och kultur.
+							På kartan ser du de olika stationerna.
+							Vid varje station hittar du en kod bestående av olika symboler.
 							Tryck in rätt kod i mobilen för att låsa upp stationen.
 							Se, lyssna och läs och svara på några kluriga frågor.
 							Lycka till!
