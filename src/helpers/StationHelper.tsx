@@ -9,7 +9,7 @@ export const folderPath = "/stations/";
 
 /** Zod schema for quiz frontmatter */
 const QuestionMeta = z.object({
-	image: z.string(),
+	image: z.union([z.string(), z.null()]),
 	question: z.string(),
 	options: z.array(z.string()),
 	correct: z.number(),
@@ -72,6 +72,12 @@ function validateData(matter: StationData): StationData {
 	// Fix pathing for local images
 	matter.data.image = convertRelativeImagePath(matter.mdxPath, matter.data.image, "https://picsum.photos/512/512");
 	matter.data.icon = convertRelativeImagePath(matter.mdxPath, matter.data.icon, "https://picsum.photos/256/256");
+
+	matter.data.quiz.forEach(question => {
+		if (question.image) {
+			question.image = convertRelativeImagePath(matter.mdxPath, question.image, "https://picsum.photos/256/256")
+		}
+	});
 
 	return matter;
 }
