@@ -63,7 +63,7 @@ function PasswordButton({ symbol, highlight, addInput }: { symbol: string, highl
 			onTouchEnd={onClick}
 			onContextMenu={(e) => e.preventDefault()}
 		>
-			<Image width={64} height={64} alt={symbol} src={`/content/symbols/${symbol}.svg`} />
+			<Image width={64} height={64} alt={symbol} src={`/symbols/${symbol}.svg`} />
 		</div>
 	);
 }
@@ -74,7 +74,7 @@ export function PasswordPreview({ symbols, password }: { symbols: string[], pass
 		<div className={style.previewWrapper}>
 			{password.map((symbol: string) =>
 				<div key={symbol} className={style.previewButton}>
-					<Image width={64} height={64} alt={symbol} src={`/content/symbols/${symbol}.svg`} />
+					<Image width={64} height={64} alt={symbol} src={`/symbols/${symbol}.svg`} />
 				</div>
 			)}
 		</div >

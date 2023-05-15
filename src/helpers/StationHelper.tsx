@@ -4,7 +4,7 @@ import { MatterData, fetchAllFiles, parseFrontmatter, convertRelativeImagePath }
 
 
 /** Content folder for station files */
-export const folderPath = "/content/stations/";
+export const folderPath = "/stations/";
 
 
 /** Zod schema for quiz frontmatter */
