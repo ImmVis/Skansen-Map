@@ -90,7 +90,7 @@ export function Panel({ stations, selectedStation, onExplore, onClose }: PanelPr
 
 			{/* Station detailed info */}
 			{stations.map(station => (pageState == PageState.StationDetails && station == selectedStation) && (
-				<div key={station.data.id + "detail"} className="p-4">
+				<div key={station.data.id + "detail"} className="p-4 pt-8">
 					<StationContent station={station} atom={getStationAtom(station.data.id)} onClose={onClose} />
 				</div>
 			))}
@@ -133,9 +133,11 @@ function StationContent({ station, atom, onClose }: { station: StationData, atom
 
 			{(stationState == StationState.Information) &&
 				<>
-					<Image width={256} height={256} className="m-auto w-64 h-32 object-cover rounded-full" alt={station.data.image} src={station.data.image} />
+					<Image width={256} height={256} className="m-auto h-24" alt={station.data.image} src={station.data.image} />
 
-					<MDXRemote {...station.content} components={getCustomComponents(station.mdxPath)} />
+					<div className="text-left">
+						<MDXRemote {...station.content} components={getCustomComponents(station.mdxPath)} />
+					</div>
 
 					<div className="mt-12 mb-8">
 						{!atom.quiz.submitted
