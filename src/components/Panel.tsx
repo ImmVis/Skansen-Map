@@ -58,6 +58,9 @@ export function Panel({ stations, selectedStation, onExplore, onClose }: PanelPr
 							<Image width={256} height={256} className="panel-preview-image flex-1" alt={station.data.image} src={station.data.image} />
 
 							<div className="mb-6">
+								<p>
+									{station.data.brief}
+								</p>
 								<BigButton onClick={onExplore}>
 									Lås upp
 								</BigButton>
@@ -72,7 +75,7 @@ export function Panel({ stations, selectedStation, onExplore, onClose }: PanelPr
 
 							<div className="mb-6">
 								<BigButton onClick={onExplore}>
-									Utforska
+									Fortsätt utforska
 								</BigButton>
 							</div>
 						</>
@@ -137,15 +140,15 @@ function StationContent({ station, atom, onClose }: { station: StationData, atom
 					<div className="mt-12 mb-8">
 						{!atom.quiz.submitted
 							? <BigButton onClick={() => setStationState(StationState.Quiz)}>
-								Starta frågesport
+								Starta quiz
 							</BigButton>
 							: <BigButton onClick={() => setStationState(StationState.Result)}>
-								Se resultat
+								Se dina svar
 							</BigButton>
 						}
 						<br />
 						<TextButton onClick={onClose}>
-							Gå tillbaka
+							Gå tillbaka till kartan
 						</TextButton>
 					</div>
 				</>
@@ -153,8 +156,6 @@ function StationContent({ station, atom, onClose }: { station: StationData, atom
 
 			{(stationState == StationState.Quiz) &&
 				<>
-					<h1>Frågesport</h1>
-
 					<Quiz stationId={station.data.id} questions={station.data.quiz} onComplete={onQuizComplete} />
 
 					<div className="mt-12 mb-8">

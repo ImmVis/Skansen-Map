@@ -55,18 +55,21 @@ function Question({ stationId, question, index, max, selected, locked }: { stati
 	}
 
 	return (
-		<div className={`${style.question} ${locked ? style.locked : ""}`}>
-			<h5 className="font-black">Fråga {index + 1} av {max}</h5>
-			<Image width={520} height={250} alt={question.image} src={question.image} />
-			<h4 className="mt-4 mb-6">{question.question}</h4>
-			<div className={`grid gap-x-4 gap-y-4 ${question.doubleColumn ? "grid-cols-2" : "grid-cols-1"}`}>
-				{question.options.map((text: string, optionIndex: number) =>
-					<Option key={optionIndex} correct={question.correct - 1 == optionIndex} selected={selected == optionIndex} onSelect={() => selectOption(optionIndex)}>
-						{text}
-					</Option>
-				)}
+		<>
+			<div className={`${style.question} ${locked ? style.locked : ""}`}>
+				<h5 className="font-black">Fråga {index + 1} av {max}</h5>
+				<Image width={520} height={250} alt={question.image} src={question.image} />
+				<h3 className="mt-6 mb-6">{question.question}</h3>
+				<div className={`grid gap-x-4 gap-y-4 ${question.doubleColumn ? "grid-cols-2" : "grid-cols-1"}`}>
+					{question.options.map((text: string, optionIndex: number) =>
+						<Option key={optionIndex} correct={question.correct - 1 == optionIndex} selected={selected == optionIndex} onSelect={() => selectOption(optionIndex)}>
+							{text}
+						</Option>
+					)}
+				</div>
 			</div>
-		</div>
+			{/* <hr></hr> */}
+		</>
 	);
 }
 

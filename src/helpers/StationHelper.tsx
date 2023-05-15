@@ -20,6 +20,7 @@ const QuestionMeta = z.object({
 const StationMeta = z.object({
 	id: z.string(),
 	name: z.string(),
+	brief: z.string(),
 	image: z.string(),
 	icon: z.string(),
 	color: z.string(),

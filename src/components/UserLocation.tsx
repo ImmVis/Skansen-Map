@@ -1,7 +1,7 @@
 import { Marker, Circle } from '@react-google-maps/api';
 import { useEffect, useState } from 'react';
 
-import locationImage from "@/assets/location.png";
+import locationImage from "@/assets/location_blue.svg";
 
 
 export function UserLocation() {
@@ -13,7 +13,6 @@ export function UserLocation() {
 	const [accuracy, setAccuracy] = useState(100);
 
 	useEffect(() => {
-		console.log("WHAT");
 		const options = {
 			enableHighAccuracy: true,
 			timeout: 5000,
@@ -23,7 +22,7 @@ export function UserLocation() {
 		if (navigator.geolocation) {
 			navigator.geolocation.watchPosition(
 				(position) => {
-					console.log("FOUND YA", position);
+					console.log("LOCATION", position, position.coords.accuracy);
 					setCenter({
 						lat: position.coords.latitude,
 						lng: position.coords.longitude,
@@ -64,7 +63,7 @@ export function UserLocation() {
 				position={center}
 				options={{
 					icon: {
-						url: "./location.svg",
+						url: locationImage.src,
 						scaledSize: new google.maps.Size(50, 50),
 						anchor: new google.maps.Point(25, 25),
 
