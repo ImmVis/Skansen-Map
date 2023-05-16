@@ -18,18 +18,18 @@ export default function Home({ stations, googleMapsApiKey, test }: { stations: S
 	const stationState = useStore(stationStateAtom);
 	const completedStations = useStore(completedAtomStations);
 
-	const [selectedStation, setStation] = useState("");
+	const [selectedStation, setSelectedStation] = useState("");
 	function onStationClick(station: StationData | null) {
 		if (station) {
 			setCenter({
 				lng: station.data.position.lng,
 				lat: station.data.position.lat,
 			});
-			setStation(station.data.id);
+			setSelectedStation(station.data.id);
 			setPageState(PageState.MapPreview);
 		}
 		else {
-			setStation("");
+			setSelectedStation("");
 			setPageState(PageState.MapBrowse);
 		}
 	}
@@ -52,15 +52,16 @@ export default function Home({ stations, googleMapsApiKey, test }: { stations: S
 		panel.current?.scrollTo(0, 0);
 	}, [stationState]);
 
-	// useEffect(() => {
-	// 	if (pageState == PageState.MapBrowse) {
-	// 		const pos = watchUserLocation(setCenter);
-	// 	}
-	// }, [pageState]);
+	useEffect(() => {
+		if (pageState == PageState.MapBrowse) {
+			setSelectedStation("");
+			// const pos = watchUserLocation(setCenter);
+		}
+	}, [pageState]);
 
 
 	const panelFullscreen = (pageState != PageState.MapBrowse);
-	const mapHide = (pageState == PageState.StationDetails);
+	const mapHide = !(pageState == PageState.MapBrowse || pageState == PageState.MapPreview);
 
 
 	return (
@@ -72,6 +73,7 @@ export default function Home({ stations, googleMapsApiKey, test }: { stations: S
 			<div ref={panel} className={`panel-wrapper ${panelFullscreen ? "active" : ""}`}>
 				<Panel
 					stations={stations}
+					completedStations={completedStations}
 					selectedStation={currentStation}
 					onExplore={() => {
 						onVisitStation(currentStation!);

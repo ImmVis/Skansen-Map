@@ -30,9 +30,7 @@ export function UserLocation() {
 					setAccuracy(position.coords.accuracy);
 					setVisible(true);
 				},
-				(error) => {
-					console.error("oh no", error);
-				},
+				(error) => {},
 				options);
 		} else {
 			console.error("Unable to use geolocation");
