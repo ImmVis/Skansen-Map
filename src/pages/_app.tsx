@@ -5,7 +5,7 @@ import Head from 'next/head'
 import Header from '@/components/Header'
 
 import { useStore } from "@nanostores/react";
-import { StationState, stationStateAtom } from "@/stores/states";
+import { PageState, pageStateAtom } from "@/stores/states";
 
 import { useWindowSize } from 'usehooks-ts';
 import Confetti from 'react-confetti';
@@ -17,7 +17,7 @@ const skansenFont = Mulish({ subsets: ['latin'] })
 export default function App({ Component, pageProps }: AppProps) {
 	const { width, height } = useWindowSize();
 
-	const stationState = useStore(stationStateAtom);
+	const pageState = useStore(pageStateAtom);
 
 
 	return (
@@ -55,7 +55,7 @@ export default function App({ Component, pageProps }: AppProps) {
 				<Confetti
 					width={width}
 					height={height}
-					numberOfPieces={stationState == StationState.Result ? 70 : 0}
+					numberOfPieces={pageState == PageState.VictoryScreen ? 50 : 0}
 				/>
 
 			</div>
