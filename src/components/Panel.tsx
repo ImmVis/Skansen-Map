@@ -14,13 +14,18 @@ import Quiz from "./Quiz";
 
 type PanelProps = {
 	stations: StationData[];
+	completedStations: StationAtom[];
 	selectedStation: StationData | undefined;
 	onExplore: () => void;
 	onClose: () => void;
 }
 
-export function Panel({ stations, selectedStation, onExplore, onClose }: PanelProps) {
+export function Panel({ stations, completedStations, selectedStation, onExplore, onClose }: PanelProps) {
 	const pageState = useStore(pageStateAtom);
+	const allStationsCompleted = (
+		completedStations.length == stations.length &&
+		completedStations.every(station => station.quiz.submitted)
+	);
 
 	// function getStationAtom(stationId: string) {
 	// return stores.find(s => s.id == stationId);
@@ -44,7 +49,21 @@ export function Panel({ stations, selectedStation, onExplore, onClose }: PanelPr
 
 			{/* No station selected */}
 			<div className={`flex flex-col h-full justify-center ${!(pageState == PageState.MapBrowse) ? "hidden" : ""}`}>
-				<span className="font-extrabold">Tryck på en station</span>
+				{allStationsCompleted
+					?
+					<div className="m-6 pb-2">
+						<p>
+							Du har funnit alla stationer!
+						</p>
+						<BigButton onClick={() => setPageState(PageState.VictoryScreen)}>
+							Se resultat
+						</BigButton>
+					</div>
+					:
+					<div className="m-6 font-extrabold">
+						Tryck på en station
+					</div>
+				}
 			</div>
 
 
@@ -94,6 +113,29 @@ export function Panel({ stations, selectedStation, onExplore, onClose }: PanelPr
 					<StationContent station={station} atom={getStationAtom(station.data.id)} onClose={onClose} />
 				</div>
 			))}
+
+
+			{/* Victory screen */}
+			<div className={`flex flex-col h-full justify-center ${!(pageState == PageState.VictoryScreen) ? "hidden" : ""}`}>
+				<div className="p-4 pt-8">
+					<h1>Grattis!</h1>
+
+					<Image width={520} height={250} alt="Result image" src="https://picsum.photos/520/250" />
+
+					<p>Bra gjort!</p>
+					<p>Du svarade på alla frågor.</p>
+
+					<div className="mt-12 mb-8">
+						<BigButton onClick={() => window.open("https://skansen.se/", "_blank")}>
+							Svara på vår enkät
+						</BigButton>
+						<br></br>
+						<TextButton onClick={() => setPageState(PageState.MapBrowse)}>
+							Gå till karta
+						</TextButton>
+					</div>
+				</div>
+			</div>
 		</div>
 	);
 }
@@ -133,7 +175,7 @@ function StationContent({ station, atom, onClose }: { station: StationData, atom
 
 			{(stationState == StationState.Information) &&
 				<>
-					<Image width={256} height={256} className="m-auto h-24" alt={station.data.icon} src={station.data.icon} />
+					<Image width={256} height={256} className="w-auto m-auto h-24" alt={station.data.icon} src={station.data.icon} />
 
 					<div className="text-left">
 						<MDXRemote {...station.content} components={getCustomComponents(station.mdxPath)} />

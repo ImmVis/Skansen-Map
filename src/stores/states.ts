@@ -7,6 +7,7 @@ export enum PageState {
 	MapBrowse,
 	MapPreview,
 	StationDetails,
+	VictoryScreen,
 }
 
 export const pageStateAtom = atom<PageState>(PageState.MapBrowse);

@@ -17,13 +17,8 @@ export interface StationAtom {
 
 export const atomStations = atom<StationAtom[]>([]);
 
-export function getStationAtom(stationId: string): StationAtom {
-	const station = atomStations.get().find(s => s.id == stationId);
-	if (station) {
-		return station;
-	}
-
-	const newStation: StationAtom = {
+function newStationAtom(stationId: string) {
+	return {
 		id: stationId,
 		hasVisited: false,
 		visitCount: 0,
@@ -31,36 +26,47 @@ export function getStationAtom(stationId: string): StationAtom {
 		quiz: {
 			answers: [],
 			correct: [],
-			submitted: false
+			submitted: true
 		}
 	};
-	atomStations.set([...atomStations.get(), newStation]);
+}
+
+export function getStationAtom(stationId: string, createIfMissing=false): StationAtom {
+	const station = atomStations.get().find(s => s.id == stationId);
+	if (station) {
+		return station;
+	}
+
+	const newStation: StationAtom = newStationAtom(stationId);
+	if (createIfMissing) {
+		atomStations.set([...atomStations.get(), newStation]);
+	}
 	return newStation;
 }
 
 
 export function atomVisitStation(stationId: string) {
-	const station = getStationAtom(stationId);
+	const station = getStationAtom(stationId, true);
 	station.hasVisited = true;
 	station.visitCount += 1;
 	atomStations.notify();
 }
 
 export function atomUnlockStation(stationId: string) {
-	const station = getStationAtom(stationId);
+	const station = getStationAtom(stationId, true);
 	station.passwordCorrect = true;
 	atomStations.notify();
 }
 
 export function atomSetQuizAnswer(stationId: string, questionIndex: number, optionIndex: number, correct: boolean) {
-	const station = getStationAtom(stationId);
+	const station = getStationAtom(stationId, true);
 	station.quiz.answers[questionIndex] = optionIndex;
 	station.quiz.correct[questionIndex] = correct;
 	atomStations.notify();
 }
 
 export function atomSubmitQuiz(stationId: string) {
-	const station = getStationAtom(stationId);
+	const station = getStationAtom(stationId, true);
 	station.quiz.submitted = true;
 	atomStations.notify();
 }
@@ -76,11 +82,4 @@ export const unlockedAtomStations = computed(atomStations, allStations =>
 
 export const completedAtomStations = computed(atomStations, allStations =>
 	allStations.filter(station => station.quiz.submitted)
-)
-
-export const allQuizzes = computed(atomStations, allStations =>
-	// allStations.filter(station => station.quiz.answers.every(answer => 
-	// (answer != -1 && answer != null)
-	// ))
-	allStations
 )
