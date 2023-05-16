@@ -51,13 +51,13 @@ export function Panel({ stations, selectedStation, onExplore, onClose }: PanelPr
 			{/* Station preview info */}
 			{stations.map(station => (pageState == PageState.MapPreview && station == selectedStation) && (
 				<div key={station.data.id + "preview"} className="flex flex-col h-full justify-center">
-					<span className="text-xl font-extrabold pt-3">{station.data.name}</span>
+					<span className="text-xl font-extrabold pt-4 mb-4">{station.data.name}</span>
 
 					{!getStationAtom(station.data.id)?.passwordCorrect
 						? <>
-							<Image width={256} height={256} className="panel-preview-image flex-1" alt={station.data.icon} src={station.data.icon} />
+							<Image width={512} height={512} className="panel-preview-image" alt={station.data.icon} src={station.data.icon} />
 
-							<div className="mb-6">
+							<div className="mb-8">
 								<p>
 									{station.data.brief}
 								</p>
@@ -121,7 +121,7 @@ function StationContent({ station, atom, onClose }: { station: StationData, atom
 						Skriv in lösenord
 					</h1>
 					<p>
-						Vid stationen hittar du koden uhh någonstans. För tillfället är koden 1 2 3 4.
+						Du hittar koden vid stationen. Tryck in symbolerna i rätt ordning för att låsa upp stationen. Lycka till!
 					</p>
 					<PasswordPrompt symbols={station.data.symbols || []} password={station.data.password || []} onSuccess={onPasswordCorrect} />
 
