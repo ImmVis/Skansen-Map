@@ -93,6 +93,7 @@ function Option({ children, correct, selected, onSelect }: { children: any, corr
 			onPointerDown={() => setHold(true)}
 			onTouchStart={() => setHold(true)}
 			onMouseLeave={() => setHold(false)}
+			onTouchMove={() => setHold(false)}
 			onPointerUp={onClick}
 			onTouchEnd={onClick}
 			onContextMenu={(e) => e.preventDefault()}
