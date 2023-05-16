@@ -21,7 +21,7 @@ const StationMeta = z.object({
 	id: z.string(),
 	name: z.string(),
 	brief: z.string(),
-	image: z.string(),
+	icon: z.string(),
 	pin: z.string(),
 	color: z.string(),
 	position: z.object({
@@ -70,7 +70,7 @@ function validateData(matter: StationData): StationData {
 	matter.data = parseFrontmatter<StationMeta>(StationMeta, matter.data, matter.mdxPath);
 
 	// Fix pathing for local images
-	matter.data.image = convertRelativeImagePath(matter.mdxPath, matter.data.image);
+	matter.data.icon = convertRelativeImagePath(matter.mdxPath, matter.data.icon);
 	matter.data.pin = convertRelativeImagePath(matter.mdxPath, matter.data.pin, "https://picsum.photos/256/256");
 
 	matter.data.quiz.forEach(question => {

@@ -55,7 +55,7 @@ export function Panel({ stations, selectedStation, onExplore, onClose }: PanelPr
 
 					{!getStationAtom(station.data.id)?.passwordCorrect
 						? <>
-							<Image width={256} height={256} className="panel-preview-image flex-1" alt={station.data.image} src={station.data.image} />
+							<Image width={256} height={256} className="panel-preview-image flex-1" alt={station.data.icon} src={station.data.icon} />
 
 							<div className="mb-6">
 								<p>
@@ -133,7 +133,7 @@ function StationContent({ station, atom, onClose }: { station: StationData, atom
 
 			{(stationState == StationState.Information) &&
 				<>
-					<Image width={256} height={256} className="m-auto h-24" alt={station.data.image} src={station.data.image} />
+					<Image width={256} height={256} className="m-auto h-24" alt={station.data.icon} src={station.data.icon} />
 
 					<div className="text-left">
 						<MDXRemote {...station.content} components={getCustomComponents(station.mdxPath)} />
