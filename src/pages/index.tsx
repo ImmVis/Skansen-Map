@@ -5,9 +5,8 @@ import { Panel } from "@/components/Panel";
 import { pageStateAtom, PageState, setPageState, stationStateAtom, setStationState, StationState } from "@/stores/states";
 
 import { MyMap } from "@/components/GoogleMap";
-import { getStationAtom, atomVisitStation } from "@/stores/stationStorage";
+import { atomVisitStation, completedAtomStations } from "@/stores/stationStorage";
 // const MyMap = dynamic(() => import("@/components/LeafletMap"), { ssr: false });
-
 
 export default function Home({ stations, googleMapsApiKey, test }: { stations: StationData[], googleMapsApiKey: string, test: string }) {
 	const [center, setCenter] = useState({
@@ -17,6 +16,7 @@ export default function Home({ stations, googleMapsApiKey, test }: { stations: S
 
 	const pageState = useStore(pageStateAtom);
 	const stationState = useStore(stationStateAtom);
+	const completedStations = useStore(completedAtomStations);
 
 	const [selectedStation, setStation] = useState("");
 	function onStationClick(station: StationData | null) {
@@ -66,7 +66,7 @@ export default function Home({ stations, googleMapsApiKey, test }: { stations: S
 	return (
 		<main className="wrapper" style={{ minHeight: '-webkit-fill-available' }}>
 			<div className={`map-wrapper ${mapHide ? "active" : ""}`}>
-				<MyMap googleMapsApiKey={googleMapsApiKey} center={center} stations={stations} selectedStation={currentStation} onStationClick={onStationClick}></MyMap>
+				<MyMap googleMapsApiKey={googleMapsApiKey} center={center} stations={stations} completedStations={completedStations} selectedStation={currentStation} onStationClick={onStationClick}></MyMap>
 			</div>
 
 			<div ref={panel} className={`panel-wrapper ${panelFullscreen ? "active" : ""}`}>

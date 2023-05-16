@@ -13,7 +13,7 @@ const QuestionMeta = z.object({
 	question: z.string(),
 	options: z.array(z.string()),
 	correct: z.number(),
-	doubleColumn: z.optional(z.boolean()),
+	shortAnswers: z.optional(z.boolean()),
 });
 
 /** Zod schema for station frontmatter */
@@ -22,7 +22,7 @@ const StationMeta = z.object({
 	name: z.string(),
 	brief: z.string(),
 	image: z.string(),
-	icon: z.string(),
+	pin: z.string(),
 	color: z.string(),
 	position: z.object({
 		lat: z.number(),
@@ -70,12 +70,12 @@ function validateData(matter: StationData): StationData {
 	matter.data = parseFrontmatter<StationMeta>(StationMeta, matter.data, matter.mdxPath);
 
 	// Fix pathing for local images
-	matter.data.image = convertRelativeImagePath(matter.mdxPath, matter.data.image, "https://picsum.photos/512/512");
-	matter.data.icon = convertRelativeImagePath(matter.mdxPath, matter.data.icon, "https://picsum.photos/256/256");
+	matter.data.image = convertRelativeImagePath(matter.mdxPath, matter.data.image);
+	matter.data.pin = convertRelativeImagePath(matter.mdxPath, matter.data.pin, "https://picsum.photos/256/256");
 
 	matter.data.quiz.forEach(question => {
 		if (question.image) {
-			question.image = convertRelativeImagePath(matter.mdxPath, question.image, "https://picsum.photos/256/256")
+			question.image = convertRelativeImagePath(matter.mdxPath, question.image)
 		}
 	});
 

@@ -6,7 +6,7 @@ import { QuestionMeta, StationData } from "@/helpers/StationHelper";
 import { getCustomComponents } from "@/components/CustomComponents";
 import { PasswordPreview, PasswordPrompt } from "@/components/Password";
 import { BigButton, CloseButton, TextButton } from "./Buttons";
-import { unlockedStations, atomUnlockStation, StationAtom, atomSubmitQuiz, getStationAtom } from "@/stores/stationStorage";
+import { atomUnlockStation, StationAtom, atomSubmitQuiz, getStationAtom } from "@/stores/stationStorage";
 import { pageStateAtom, PageState, setPageState, stationStateAtom, StationState, setStationState } from "@/stores/states";
 
 import Quiz from "./Quiz";

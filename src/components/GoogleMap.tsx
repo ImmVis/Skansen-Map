@@ -1,13 +1,27 @@
 import { useState, useCallback, useEffect } from "react";
 import { GoogleMap, useJsApiLoader, Circle, GroundOverlay, Marker } from '@react-google-maps/api';
 import { UserLocation } from "./UserLocation";
+import { StationData } from "@/helpers/StationHelper";
+import { StationAtom, completedAtomStations } from "@/stores/stationStorage";
+
+import checkPin from "@/assets/geoTag-check.svg";
+
 
 const containerStyle = {
 	width: '100%',
 	height: '100%'
 };
 
-export function MyMap({ googleMapsApiKey, center, stations, selectedStation, onStationClick }: any) {
+type MapProps = {
+	googleMapsApiKey: string;
+	center: { lat: number, lng: number };
+	stations: StationData[];
+	completedStations: StationAtom[];
+	selectedStation: StationData | undefined;
+	onStationClick: (station: StationData | null) => void;
+}
+
+export function MyMap({ googleMapsApiKey, center, stations, completedStations, selectedStation, onStationClick }: MapProps) {
 	const { isLoaded } = useJsApiLoader({
 		id: 'google-map-script',
 		googleMapsApiKey: googleMapsApiKey
@@ -108,7 +122,7 @@ export function MyMap({ googleMapsApiKey, center, stations, selectedStation, onS
 					onClick={() => { onStationClick(null) }}
 				/>
 
-				{stations.map((station: any) => (
+				{stations.map((station: StationData) => (
 					<Marker
 						key={station.data.name}
 						position={station.data.position}
@@ -116,9 +130,8 @@ export function MyMap({ googleMapsApiKey, center, stations, selectedStation, onS
 						animation={selectedStation == station ? google.maps.Animation.BOUNCE : undefined}
 						options={{
 							icon: {
-								// url: "./marker.gif",
-								// url: "./content/stations/stad/geoTag-house.svg",
-								url: station.data.icon,
+								url: (completedStations.find(s => s.id == station.data.id)) ? checkPin.src : station.data.pin,
+								// url: station.data.pin,
 								scaledSize: new google.maps.Size(80, 80),
 								anchor: new google.maps.Point(40, 80),
 

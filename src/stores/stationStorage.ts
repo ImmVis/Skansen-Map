@@ -66,12 +66,16 @@ export function atomSubmitQuiz(stationId: string) {
 }
 
 
-export const visitedStations = computed(atomStations, allStations =>
+export const visitedAtomStations = computed(atomStations, allStations =>
 	allStations.filter(station => station.hasVisited)
 )
 
-export const unlockedStations = computed(atomStations, allStations =>
+export const unlockedAtomStations = computed(atomStations, allStations =>
 	allStations.filter(station => station.passwordCorrect)
+)
+
+export const completedAtomStations = computed(atomStations, allStations =>
+	allStations.filter(station => station.quiz.submitted)
 )
 
 export const allQuizzes = computed(atomStations, allStations =>
