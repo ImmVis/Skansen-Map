@@ -44,6 +44,10 @@ export function Panel({ stations, completedStations, selectedStation, onExplore,
 		}
 	}, [pageState, selectedStation]);
 
+	const quizTotalCount = stations.reduce((sum: number, station: StationData) => sum + station.data.quiz.length, 0);
+	const quizCorrectCount = completedStations.reduce((sum: number, station: StationAtom) => sum + station.quiz.correct.filter(c => c).length, 0);
+
+
 	return (
 		<div className="panel-content">
 
@@ -118,12 +122,27 @@ export function Panel({ stations, completedStations, selectedStation, onExplore,
 			{/* Victory screen */}
 			<div className={`flex flex-col h-full justify-center ${!(pageState == PageState.VictoryScreen) ? "hidden" : ""}`}>
 				<div className="p-4 pt-8">
-					<h1>Grattis!</h1>
-
 					<Image width={520} height={250} alt="Result image" src="https://picsum.photos/520/250" />
 
-					<p>Bra gjort!</p>
-					<p>Du svarade på alla frågor.</p>
+					<h1>
+						Grattis!
+					</h1>
+
+					<h3>
+						Du har utforskat alla stationer!
+					</h3>
+					<h4>
+						Ditt samlade resultat är {quizCorrectCount} rätt av {quizTotalCount} frågor.
+					</h4>
+
+					<hr></hr>
+
+					<p>
+						Tack för att du vill lära dig mer!
+					</p>
+					<p>
+						Den biologiska mångfalden i naturen är fantastiskt! Tillsammans kan vi göra skillnad för alla djur, insekter och växter som vi delar vår planet med!
+					</p>
 
 					<div className="mt-12 mb-8">
 						<BigButton onClick={() => window.open("https://skansen.se/", "_blank")}>
