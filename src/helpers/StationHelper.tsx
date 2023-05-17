@@ -18,6 +18,7 @@ const QuestionMeta = z.object({
 
 /** Zod schema for station frontmatter */
 const StationMeta = z.object({
+	hidden: z.optional(z.boolean()),
 	id: z.string(),
 	name: z.string(),
 	brief: z.string(),
@@ -49,7 +50,8 @@ export interface StationData extends MatterData {
 
 /** Returns matter data for all stations */
 export async function getAllStations(): Promise<MatterData[]> {
-	const matterList = await fetchAllFiles(path.join(".", folderPath));
+	let matterList = await fetchAllFiles(path.join(".", folderPath));
+	matterList = matterList.filter(f => !f.data.hidden);
 	return matterList.map(matterData =>
 		validateData(matterData as StationData)
 	);
