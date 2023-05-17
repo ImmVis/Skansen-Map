@@ -26,7 +26,7 @@ function newStationAtom(stationId: string) {
 		quiz: {
 			answers: [],
 			correct: [],
-			submitted: true
+			submitted: false
 		}
 	};
 }
