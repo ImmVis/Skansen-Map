@@ -33,17 +33,17 @@ export default function Header() {
 	}
 
 	function toggleFullscreen() {
-		const element = document.documentElement as any;
-
-		if (element.fullscreenElement) {
-			if (element.exitFullscreen) {
-				element.exitFullscreen();
-			} else if (element.mozCancelFullScreen) {
-				element.mozCancelFullScreen();
-			} else if (element.webkitExitFullscreen) {
-				element.webkitExitFullscreen();
+		const doc = document as any;
+		if (doc.fullscreenElement) {
+			if (doc.exitFullscreen) {
+				doc.exitFullscreen();
+			} else if (doc.mozCancelFullScreen) {
+				doc.mozCancelFullScreen();
+			} else if (doc.webkitExitFullscreen) {
+				doc.webkitExitFullscreen();
 			}
 		} else {
+			const element = document.documentElement as any;
 			if (element.requestFullscreen) {
 				element.requestFullscreen();
 			} else if (element.mozRequestFullScreen) {
