@@ -42,6 +42,7 @@ export default function App({ Component, pageProps }: AppProps) {
 				<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#b73337" />
 				<meta name="msapplication-TileColor" content="#b73337" />
 				<meta name="theme-color" content="#ffffff" />
+				<meta name="apple-mobile-web-app-capable" content="yes" />
 			</Head>
 
 			<div className={`flex flex-col ${skansenFont.className}`} style={{ height: "100svh" }}>

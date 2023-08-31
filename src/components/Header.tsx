@@ -34,6 +34,8 @@ export default function Header() {
 
 	function toggleFullscreen() {
 		const doc = document as any;
+		const element = document.documentElement as any;
+
 		if (doc.fullscreenElement) {
 			if (doc.exitFullscreen) {
 				doc.exitFullscreen();
@@ -43,7 +45,6 @@ export default function Header() {
 				doc.webkitExitFullscreen();
 			}
 		} else {
-			const element = document.documentElement as any;
 			if (element.requestFullscreen) {
 				element.requestFullscreen();
 			} else if (element.mozRequestFullScreen) {
@@ -53,6 +54,12 @@ export default function Header() {
 			} else if (element.msRequestFullscreen) {
 				element.msRequestFullscreen();
 			}
+		}
+
+		if (doc.webkitFullscreenElement) {
+			doc.webkitCancelFullScreen();
+		} else {
+			element.webkitRequestFullscreen((Element as any).ALLOW_KEYBOARD_INPUT);
 		}
 	}
 
