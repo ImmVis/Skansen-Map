@@ -31,11 +31,29 @@
 		text-align: center;
 	}
 
-	&-preview-image {
-		width: 30%;
-		flex-grow: 1;
-		margin: auto;
-		padding: 8px;
+	&-preview {
+		&-wrapper {
+			@apply flex flex-col;
+			height: 100%;
+			padding: 0 16px;
+			overflow-y: auto;
+		}
+
+		&-title {
+			@apply text-xl font-extrabold pt-4 mb-4;
+		}
+
+		&-image-wrapper {
+			@apply flex-1 overflow-hidden;
+			max-height: 30%;
+			max-width: 50%;
+			margin: 0 auto;
+		}
+
+		&-image {
+			height: 100%;
+			padding: 8px;
+		}
 	}
 }
 

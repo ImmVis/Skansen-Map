@@ -73,12 +73,14 @@ export function Panel({ stations, completedStations, selectedStation, onExplore,
 
 			{/* Station preview info */}
 			{stations.map(station => (pageState == PageState.MapPreview && station == selectedStation) && (
-				<div key={station.data.id + "preview"} className="flex flex-col h-full justify-center">
-					<span className="text-xl font-extrabold pt-4 mb-4">{station.data.name}</span>
+				<div key={station.data.id + "preview"} className="panel-preview-wrapper">
+					<span className="panel-preview-title">{station.data.name}</span>
 
 					{!getStationAtom(station.data.id)?.passwordCorrect
 						? <>
-							<Image width={512} height={512} className="panel-preview-image" alt={station.data.icon} src={station.data.icon} />
+							<div className="panel-preview-image-wrapper">
+								<Image width={512} height={512} className="panel-preview-image" alt={station.data.icon} src={station.data.icon} />
+							</div>
 
 							<div className="mb-8">
 								<p>
