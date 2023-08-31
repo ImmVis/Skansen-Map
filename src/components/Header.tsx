@@ -33,15 +33,15 @@ export default function Header() {
 	}
 
 	function toggleFullscreen() {
-		const element = document.documentElement;
+		const element = document.documentElement as any;
 
-		if (document.fullscreenElement) {
-			if (document.exitFullscreen) {
-				document.exitFullscreen();
-			} else if (document.mozCancelFullScreen) {
-				document.mozCancelFullScreen();
-			} else if (document.webkitExitFullscreen) {
-				document.webkitExitFullscreen();
+		if (element.fullscreenElement) {
+			if (element.exitFullscreen) {
+				element.exitFullscreen();
+			} else if (element.mozCancelFullScreen) {
+				element.mozCancelFullScreen();
+			} else if (element.webkitExitFullscreen) {
+				element.webkitExitFullscreen();
 			}
 		} else {
 			if (element.requestFullscreen) {
