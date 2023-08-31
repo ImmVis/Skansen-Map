@@ -82,8 +82,8 @@ export function Panel({ stations, completedStations, selectedStation, onExplore,
 								<Image width={512} height={512} className="panel-preview-image" alt={station.data.icon} src={station.data.icon} />
 							</div>
 
-							<div className="mb-8">
-								<p>
+							<div className="mb-6">
+								<p className="panel-preview-brief">
 									{station.data.brief}
 								</p>
 								<BigButton onClick={onExplore}>
@@ -180,10 +180,10 @@ function StationContent({ station, atom, onClose }: { station: StationData, atom
 		<>
 			{(stationState == StationState.Password) &&
 				<>
-					<h1>
+					<h1 className="mt-0">
 						Skriv in lösenord
 					</h1>
-					<p>
+					<p className="leading-5">
 						Du hittar koden vid stationen. Tryck in symbolerna i rätt ordning för att låsa upp stationen. Lycka till!
 					</p>
 					<PasswordPrompt symbols={station.data.symbols || []} password={station.data.password || []} onSuccess={onPasswordCorrect} />

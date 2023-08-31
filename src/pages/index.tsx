@@ -60,7 +60,7 @@ export default function Home({ stations, googleMapsApiKey, test }: { stations: S
 	}, [pageState]);
 
 
-	const panelFullscreen = (pageState != PageState.MapBrowse);
+	const panelActive = (pageState != PageState.MapBrowse);
 	const mapHide = !(pageState == PageState.MapBrowse || pageState == PageState.MapPreview);
 
 
@@ -70,7 +70,7 @@ export default function Home({ stations, googleMapsApiKey, test }: { stations: S
 				<MyMap googleMapsApiKey={googleMapsApiKey} center={center} stations={stations} completedStations={completedStations} selectedStation={currentStation} onStationClick={onStationClick}></MyMap>
 			</div>
 
-			<div ref={panel} className={`panel-wrapper ${panelFullscreen ? "active" : ""}`}>
+			<div ref={panel} className={`panel-wrapper ${panelActive ? "active" : ""} ${mapHide ? "fullscreen" : ""}`}>
 				<Panel
 					stations={stations}
 					completedStations={completedStations}
