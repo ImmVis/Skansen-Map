@@ -28,6 +28,10 @@ export default function Quiz({ stationId, questions, onComplete }: { stationId: 
 
 	return (
 		<>
+			<p>
+				Du hittar svaren till frågorna runt omkring dig och i texten i din telefon.
+			</p>
+			<hr />
 			{questions.map((question: any, index: number) =>
 				<Question key={index} stationId={stationId} question={question} index={index} max={questions.length} selected={quizAtom ? quizAtom.quiz.answers[index] : -1} locked={index > answerCount} />
 			)}
