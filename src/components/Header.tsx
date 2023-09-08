@@ -141,7 +141,9 @@ export default function Header() {
 						}`}
 					>
 						<small>Välkommen att testa demoversionen av</small>
-						<h1 className="font-extrabold">Skansens digitala tipspromenad</h1>
+						<h1 className="font-extrabold mt-5">
+							Skansens digitala tipspromenad
+						</h1>
 						<p>
 							Lär dig om den biologiska mångfalden i vår svenska natur! Under
 							2023 kan du vara med och testa vår digitala tipspromenad. Ta en
@@ -168,13 +170,13 @@ export default function Header() {
 							page != "info" ? style.hidePage : ""
 						}`}
 					>
-						<h1 className="font-extrabold">Instruktioner</h1>
 						<Image
 							width={520}
 							height={300}
 							alt="Instructions image"
-							src="https://picsum.photos/520/300"
+							src="/stations/stad/media/Staden.jpg"
 						/>
+						<h1 className="font-extrabold">Instruktioner</h1>
 						<p>
 							Consectetur est minim occaecat ex magna anim sint pariatur culpa
 							velit.

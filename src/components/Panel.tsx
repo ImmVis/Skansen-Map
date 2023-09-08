@@ -10,6 +10,7 @@ import { atomUnlockStation, StationAtom, atomSubmitQuiz, getStationAtom } from "
 import { pageStateAtom, PageState, setPageState, stationStateAtom, StationState, setStationState } from "@/stores/states";
 
 import Quiz from "./Quiz";
+import QuizResults from "./QuizResults";
 
 
 type PanelProps = {
@@ -56,9 +57,9 @@ export function Panel({ stations, completedStations, selectedStation, onExplore,
 				{allStationsCompleted
 					?
 					<div className="m-6 pb-2">
-						<p>
+						<h3 className="mt-3">
 							Du har funnit alla stationer!
-						</p>
+						</h3>
 						<BigButton onClick={() => setPageState(PageState.VictoryScreen)}>
 							Se resultat
 						</BigButton>
@@ -124,7 +125,7 @@ export function Panel({ stations, completedStations, selectedStation, onExplore,
 			{/* Victory screen */}
 			<div className={`flex flex-col h-full justify-center ${!(pageState == PageState.VictoryScreen) ? "hidden" : ""}`}>
 				<div className="p-4 pt-8">
-					<Image width={520} height={250} alt="Result image" src="https://picsum.photos/520/250" />
+					<Image width={520} height={250} alt="Result image" src="/stations/stad/media/koloni 1.jpg" />
 
 					<h1>
 						Grattis!
@@ -133,7 +134,7 @@ export function Panel({ stations, completedStations, selectedStation, onExplore,
 					<h3>
 						Du har utforskat alla stationer!
 					</h3>
-					<h4>
+					<h4 className="mt-0">
 						Ditt samlade resultat är {quizCorrectCount} rätt av {quizTotalCount} frågor.
 					</h4>
 
@@ -147,7 +148,7 @@ export function Panel({ stations, completedStations, selectedStation, onExplore,
 					</p>
 
 					<div className="mt-12 mb-8">
-						<BigButton onClick={() => window.open("https://skansen.se/", "_blank")}>
+						<BigButton onClick={() => window.open("https://skansen.se/skansens-quiz/", "_blank")}>
 							Svara på vår enkät
 						</BigButton>
 						<br></br>
@@ -174,6 +175,8 @@ function StationContent({ station, atom, onClose }: { station: StationData, atom
 		atomSubmitQuiz(station.data.id);
 		setStationState(StationState.Result);
 	}
+
+	const quizScore = atom.quiz.correct.filter(Boolean).length;
 
 
 	return (
@@ -234,12 +237,29 @@ function StationContent({ station, atom, onClose }: { station: StationData, atom
 
 			{(stationState == StationState.Result) &&
 				<>
+					<Image
+						width={520}
+						height={250}
+						alt="Ditt resultat"
+						src={
+							quizScore >= 4
+								? "/images/animals/Berguv.jpg"
+							: quizScore == 3
+								? "/images/animals/Kaniner.jpg"
+							: quizScore == 2
+								? "/images/animals/Asenfar2.jpg"
+							: quizScore == 1
+								? "/images/animals/Utter.jpg"
+							: "/images/animals/Visent.jpg"
+						}
+					/>
+
 					<h1>Resultat</h1>
 
-					<Image width={520} height={250} alt="Result image" src="https://picsum.photos/520/250" />
+					{/* <p>Bra gjort!</p> */}
+					<h3 className="mt-0">Du svarade rätt på {quizScore} av {atom.quiz.correct.length} frågor!</h3>
 
-					<p>Bra gjort!</p>
-					<p>Du svarade rätt på {atom.quiz.correct.filter(Boolean).length} av {atom.quiz.correct.length} frågor.</p>
+					<QuizResults stationId={station.data.id} questions={station.data.quiz} onComplete={onQuizComplete} />
 
 					<div className="mt-12 mb-8">
 						<BigButton onClick={() => setPageState(PageState.MapBrowse)}>

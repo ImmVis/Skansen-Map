@@ -1,0 +1,48 @@
+$background: var(--skansen-red);
+$border: #83233d;
+$buttonHeight: 5px;
+$buttonHeightHold: 0px;
+$buttonHeightSelected: 2px;
+$buttonRadius: 10px;
+
+.question {
+	@apply snap-center px-4 text-left w-full flex flex-col justify-center;
+
+	transition: all 100ms ease;
+	cursor: pointer;
+
+	&.locked {
+		opacity: 0.4;
+		pointer-events: none;
+		user-select: none;
+	}
+}
+
+.button {
+	display: flex;
+
+	@apply p-2 gap-2 rounded-md;
+
+	font-size: 1em;
+	font-weight: 500;
+
+	color: var(--skansen-black);
+
+	user-select: none;
+	-webkit-tap-highlight-color: transparent;
+	transition: all 100ms;
+
+	&.correct {
+		background-color: #3a8352;
+		color: white;
+	}
+
+	&.incorrect {
+		background-color: #ea3e3f;
+		color: white;
+	}
+}
+
+.icon {
+	width: 1em;
+}
