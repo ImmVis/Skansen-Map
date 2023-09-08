@@ -58,7 +58,7 @@ function Question({ stationId, question, index, max, selected, locked }: { stati
 		}
 	}
 
-	const useDoubleColumns = question.options.every(text => text.length <= 16);
+	const useDoubleColumns = question.options.every(text => text.length <= 14);
 
 	return (
 		<>
