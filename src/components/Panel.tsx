@@ -125,7 +125,7 @@ export function Panel({ stations, completedStations, selectedStation, onExplore,
 			{/* Victory screen */}
 			<div className={`flex flex-col h-full justify-center ${!(pageState == PageState.VictoryScreen) ? "hidden" : ""}`}>
 				<div className="p-4 pt-8">
-					<Image width={520} height={250} alt="Result image" src="/stations/stad/media/koloni 1.jpg" />
+					<Image width={520} height={250} alt="Result image" src="/stations/stad/media/Linderossvin.jpg" />
 
 					<h1>
 						Grattis!
