@@ -184,7 +184,7 @@ function StationContent({ station, atom, onClose }: { station: StationData, atom
 			{(stationState == StationState.Password) &&
 				<>
 					<h1 className="mt-0">
-						Skriv in lösenord
+						Tryck in rätt kod
 					</h1>
 					<p className="leading-5">
 						Du hittar koden vid stationen. Tryck in symbolerna i rätt ordning för att låsa upp stationen. Lycka till!
