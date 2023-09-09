@@ -142,7 +142,7 @@ export default function Header() {
 					>
 						<small>Välkommen att testa demoversionen av</small>
 						<h1 className="font-extrabold mt-5">
-							Skansens digitala tipspromenad
+							Demo: Skansens tipspromenad om biologiska mångfald
 						</h1>
 						<p>
 							Lär dig om den biologiska mångfalden i vår svenska natur! Under
@@ -176,15 +176,21 @@ export default function Header() {
 							alt="Instructions image"
 							src="/stations/stad/media/Staden.jpg"
 						/>
-						<h1 className="font-extrabold">Instruktioner</h1>
+						<h1 className="font-extrabold">Så gör du</h1>
 						<p>
-							Consectetur est minim occaecat ex magna anim sint pariatur culpa
-							velit.
+							Kartan i din mobil visar de olika stationerna runt om i parken. 
+							Starta i vår rulltrappa. Promenera sedan till övriga stationr i den ordning du vill.
+							Tryck in de symboler du hittar vid stationen för att låsa upp informtion och för att
+							svara på ett antal frågor. Svaren till frågorna hittar i texten i din mobil och på 
+							skyltar i närheten.
+							När du besökt alla stationer och svarat på alla frågor får du ett
+							samlat resultat - lycka till!!
+							
 						</p>
 						<p>
-							Laborum magna esse adipisicing tempor id in labore. Veniam nisi
-							laboris duis ad labore elit consectetur et irure. Nostrud enim
-							nostrud aliqua dolor amet.
+							Demoversion testas under hösten 2023. Svara gärna på utvärderingsfrågorna via länken
+							som dyker upp efter avklarat tipspromenad. 
+							
 						</p>
 
 						<div className="text-center">
