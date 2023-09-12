@@ -57,11 +57,11 @@ function Question({
 	max: number;
 	answer: number;
 }) {
-	const [showAll, setShowAll] = useState(false);
+	const [showAll, setShowAll] = useState(answer != question.correct - 1);
 
 	return (
 		<>
-			<div className={`${style.question} ${showAll ? "py-4" : "my-0"}`} onClick={() => setShowAll(!showAll)}>
+			<div className={`${style.question} ${showAll ? "py-4" : "my-0"}`} onClick={() => setShowAll(true)}>
 				{/* <h5 className="font-black">
 					Fråga {index + 1} av {max}
 				</h5> */}
