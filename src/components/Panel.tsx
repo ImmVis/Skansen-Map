@@ -77,7 +77,7 @@ export function Panel({ stations, completedStations, selectedStation, onExplore,
 				<div key={station.data.id + "preview"} className="panel-preview-wrapper">
 					<span className="panel-preview-title">{station.data.name}</span>
 
-					{!getStationAtom(station.data.id)?.passwordCorrect
+					{true || !getStationAtom(station.data.id)?.passwordCorrect
 						? <>
 							<div className="panel-preview-image-wrapper">
 								<Image width={512} height={512} className="panel-preview-image" alt={station.data.icon} src={station.data.icon} />
@@ -88,7 +88,8 @@ export function Panel({ stations, completedStations, selectedStation, onExplore,
 									{station.data.brief}
 								</p>
 								<BigButton onClick={onExplore}>
-									Lås upp
+									{/* Lås upp */}
+									Utforska
 								</BigButton>
 							</div>
 						</>

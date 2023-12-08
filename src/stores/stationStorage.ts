@@ -22,7 +22,7 @@ function newStationAtom(stationId: string) {
 		id: stationId,
 		hasVisited: false,
 		visitCount: 0,
-		passwordCorrect: false,
+		passwordCorrect: true,
 		quiz: {
 			answers: [],
 			correct: [],
