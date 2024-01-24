@@ -176,11 +176,18 @@ export default function Header() {
 						/>
 						<h1 className="font-extrabold">Så gör du</h1>
 						<p>
-							Kartan i din mobil visar de olika stationerna runt om i parken. 
-							Starta i vår rulltrappa. Promenera sedan till övriga stationer i den ordning du vill.
-							Tryck in de symboler du hittar vid stationen för att låsa upp information och för att
-							svara på ett antal frågor. Svaren till frågorna hittar i texten i din mobil och på 
-							skyltar i närheten.
+							Kartan i din mobil visar de olika stationerna runt om i parken som du ska besöka.
+						</p>
+							För bästa digitala upplevelse: tryck ”Dela” och välj ”Lägg till på hemskärmen”
+							(då slipper du browserns pilar etc. som kan störa).
+						</p>
+							Platsinformation: Tillåt quiz.skansen.se att ”använda din nuvarande plats” 
+							– det möjliggör att du kan se din egen position på kartan.
+						</p>
+							Starta i vår rulltrappa. Promenera sedan till övriga stationer i den ordning du vill
+							och svara på frågorna som dyker upp i mobilen (tryck på stations-ikonen på din karta när du anlänt)
+						
+						</p>
 							När du besökt alla stationer och svarat på alla frågor får du ett
 							samlat resultat - lycka till!!
 							
