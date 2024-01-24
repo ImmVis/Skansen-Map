@@ -145,13 +145,11 @@ export default function Header() {
 							Demo: Skansens tipspromenad om biologiska mångfald
 						</h1>
 						<p>
-							Lär dig om den biologiska mångfalden i vår svenska natur! Under
-							2023 kan du vara med och testa vår digitala tipspromenad. Ta en
+							Lär dig om den biologiska mångfalden i vår svenska natur! 
+							Nu kan du vara med och testa vår digitala tipspromenad. Ta en
 							tur runt Skansen och utforska natur, djur och kultur. På kartan
-							ser du de olika stationerna. Vid varje station hittar du en kod
-							bestående av olika symboler. Tryck in rätt kod i mobilen för att
-							låsa upp stationen. Se, lyssna och läs och svara på några kluriga
-							frågor. Lycka till!
+							ser du de olika stationerna som du ska besöka. 
+							Se, lyssna och läs och svara på några kluriga frågor. Lycka till!
 						</p>
 
 						{/* <Butterfly /> */}
@@ -188,7 +186,7 @@ export default function Header() {
 							
 						</p>
 						<p>
-							Demoversion testas under hösten 2023. Svara gärna på utvärderingsfrågorna via länken
+							Demoversion testas under våren 2024. Svara gärna på utvärderingsfrågorna via länken
 							som dyker upp efter avklarat tipspromenad. 
 							
 						</p>
